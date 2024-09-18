@@ -11,6 +11,8 @@ const config: Config = {
       colors: {
         'light-purple': "#252945",
         'dark-purple': "#141625",
+        'violet' :'#7c5dfa',
+        'light-violet':'#9277ff',
       },
     },
   },
