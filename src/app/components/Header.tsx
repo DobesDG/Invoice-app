@@ -13,13 +13,9 @@ const [dark,setDark] = useState<Boolean>(true)
 
     return(
         <header className="flex flex-col justify-between bg-light-purple h-screen w-[6.4375rem] rounded-r-3xl">
-            <div className="flex flex-col justify-center items-center h-[103px] w-full bg-violet rounded-r-3xl">
-                <Image
-                    src={logo}
-                    width={28}
-                    height={26}
-                    alt=""
-                />
+            <div className="group relative overflow-hidden cursor-pointer h-[103px] w-full bg-violet flex items-center justify-center rounded-r-3xl">
+                <Image src={logo} alt="Logo" width={28} height={26} className="relative z-10" />
+                <div className="absolute top-1/2 left-0 h-[103px] w-full bg-light-violet rounded-l-[20px] transition-all duration-300 ease-in-out z-0 group-hover:top-[10%]" />
             </div>
             <div className="flex flex-col justify-center items-center">
                 <div className="flex flex-col justify-center items-center h-[88px] w-full border-b border-gray-600">
