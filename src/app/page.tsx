@@ -1,12 +1,12 @@
 import { Header } from "./components/Header";
-import { Main } from "./components/Main";
+import { InvoiceIndex } from "./components/InvoiceIndex";
 
 
 export default function Home() {
   return (
-    <div>
+    <div className="flex flex-row bg-dark-purple">
         <Header/>
-        <Main />
+        <InvoiceIndex />
     </div>
   );
 }

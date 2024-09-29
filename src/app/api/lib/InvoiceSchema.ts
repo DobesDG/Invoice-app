@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 const InvoiceSchema = new mongoose.Schema({
-  _id: { type: String, required: true },
-  status: { type: String, required: true },
+  _id: { type: String , required: true},
+  status: { type: String},
   pay_from:{
-    streed_ad_from: {type: String},
+    street_ad_from: {type: String},
     city_from: {type: String},
     pcode_city_from: {type: String},
     country_from: {type: String}
@@ -19,7 +19,7 @@ const InvoiceSchema = new mongoose.Schema({
     payment: {type: String},
     description: {type: String}
   },
-  date_added: { $date: {type: Date, required: true} },
+  date_added: { type: Date },
   item_list: [
     {
         item_name: {type: String},
@@ -29,4 +29,4 @@ const InvoiceSchema = new mongoose.Schema({
   ]
 });
 
-export default mongoose.models.Invoice || mongoose.model("Invoice", InvoiceSchema)
+export default mongoose.models.Invoices || mongoose.model("Invoices", InvoiceSchema)
