@@ -6,11 +6,10 @@ import Image from "next/image";
 import arrow_down from '../public/assets/icon-arrow-down.svg'
 import plus from '../public/assets/icon-plus.svg'
 import DateComponent from "./Date";
-import { Aggregate, Date } from "mongoose";
 
 interface Invoice {
     _id: String,
-    status: String ,
+    status: string ,
     pay_from:{
       streed_ad_from: String,
       city_from: String,
@@ -42,6 +41,18 @@ export const InvoiceIndex: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const colorStatus = (typeStatus: string) => {
+    switch (typeStatus) {
+      case 'Paid':
+        return ['bg-[#33d69f]','text-[#33d69f]'];
+      case 'Pending':
+        return ['bg-[#ff8f00]','text-[#ff8f00]'];
+      case 'Draft':
+        return ['bg-white','text-white'];
+      default:
+        return '';
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -89,18 +100,19 @@ export const InvoiceIndex: React.FC = () => {
         {invoices.map((invoice, index) => (
           <li key={index}>
             <div className="flex flex-row bg-dark-blue p-6 rounded-lg mb-4">
-              <div className="flex flex-row">
-                <p>#{invoice._id}</p>
-                <p>Due <DateComponent dateString={invoice.date_added}/></p>
+              <div className="flex flex-row justify-center items-center">
+                <span className="text-[#7e88c3] text-xs font-bold">#</span>
+                <p className="text-white text-xs font-bold">{invoice._id}</p>
+                <p className="text-white text-[0.6875rem]">Due <DateComponent dateString={invoice.date_added}/></p>
               </div>
-              <div className="flex flex-row">
-                <div className="flex flex-row">
-                  <p>{invoice.pay_to.client_name}</p>
-                  <p>${invoice.item_list.reduce((acc, cur) => acc + cur.quant * cur.price, 0).toFixed(2)}</p>
+              <div className="flex flex-row justify-center items-center">
+                <div className="flex flex-row justify-center items-center">
+                  <p className="text-white text-[0.6875rem]">{invoice.pay_to.client_name}</p>
+                  <p className="text-white text-base font-bold">${invoice.item_list.reduce((acc, cur) => acc + cur.quant * cur.price, 0).toFixed(2)}</p>
                 </div>
-                <div className="flex flex-row">
-                  <span></span>
-                  <p>{invoice.status}</p>
+                <div className="flex flex-row justify-center items-center">
+                  <span className={`w-[8px] h-[8px] ${colorStatus(invoice.status)[0]} rounded-full`}></span>
+                  <p className={`text-xs font-bold ${colorStatus(invoice.status)[1]}`}>{invoice.status}</p>
                 </div>
               </div>
             </div>
