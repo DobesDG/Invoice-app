@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import arrow_down from '../public/assets/icon-arrow-down.svg'
 import plus from '../public/assets/icon-plus.svg'
+import DateComponent from "./Date";
+import { Aggregate, Date } from "mongoose";
 
 interface Invoice {
     _id: String,
@@ -25,12 +27,12 @@ interface Invoice {
       payment:String,
       description: String
     },
-    date_added: { $date: Date },
+    date_added: string,
     item_list: [
       {
           item_name: String,
-          quant:  Number,
-          price: Number
+          quant:  number,
+          price: number
       }
     ]
 }
@@ -39,6 +41,7 @@ export const InvoiceIndex: React.FC = () => {
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,8 +62,8 @@ export const InvoiceIndex: React.FC = () => {
     fetchData();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) return <p className="flex flex-row w-full justify-center items-center text-white text-xl">Loading...</p>;
+  if (error) return <p className="flex flex-row w-full justify-center items-center text-white text-xl">Error: {error}</p>;
 
   return (
     <section className="flex flex-col justify-start pt-16 items-center w-full">
@@ -82,11 +85,25 @@ export const InvoiceIndex: React.FC = () => {
             </button>
         </div>
       </section>
-      <ul>  
+      <ul className="flex flex-col w-full justify-center items-center">  
         {invoices.map((invoice, index) => (
           <li key={index}>
-            <p>{invoice.status}</p>
-            {/* Map other fields from the Invoice model here */}
+            <div className="flex flex-row bg-dark-blue p-6 rounded-lg mb-4">
+              <div className="flex flex-row">
+                <p>#{invoice._id}</p>
+                <p>Due <DateComponent dateString={invoice.date_added}/></p>
+              </div>
+              <div className="flex flex-row">
+                <div className="flex flex-row">
+                  <p>{invoice.pay_to.client_name}</p>
+                  <p>${invoice.item_list.reduce((acc, cur) => acc + cur.quant * cur.price, 0).toFixed(2)}</p>
+                </div>
+                <div className="flex flex-row">
+                  <span></span>
+                  <p>{invoice.status}</p>
+                </div>
+              </div>
+            </div>
           </li>
         ))}
       </ul>
