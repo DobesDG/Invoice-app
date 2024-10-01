@@ -21,6 +21,9 @@ const config: Config = {
         'transp-orange':'#ff8f000f',
         'transp-white':'#dfe3fa0f'
       },
+      boxShadow: {
+        'filterShadow':'0 10px 20px rgba(0,0,0,.25)'
+      }
     },
   },
   plugins: [],

@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
 const [dark,setDark] = useState<Boolean>(true)
 
     return(
-        <header className="flex flex-col justify-between bg-light-purple h-screen w-[6.4375rem] rounded-r-3xl fixed">
+        <header className="flex flex-col justify-between bg-light-purple h-screen w-[6.4375rem] rounded-r-[20px] fixed">
             <div className="group relative overflow-hidden cursor-pointer h-[103px] w-full bg-violet flex items-center justify-center rounded-r-3xl">
                 <Image src={logo} alt="Logo" width={28} height={26} className="relative z-10" />
                 <div className="absolute top-1/2 left-0 h-[103px] w-full bg-light-violet rounded-l-[20px] transition-all duration-300 ease-in-out z-0 group-hover:top-[10%]" />

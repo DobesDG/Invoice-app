@@ -41,6 +41,11 @@ export const InvoiceIndex: React.FC = () => {
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [filterOn,setFilterOn] = useState(false)
+
+  const handleFilter = () => {
+    setFilterOn(!filterOn)
+  }
 
   const colorStatus = (typeStatus: string) => {
     switch (typeStatus) {
@@ -78,16 +83,21 @@ export const InvoiceIndex: React.FC = () => {
   if (error) return <p className="flex flex-row w-full h-[100vh] justify-center items-center text-white text-xl">Error: {error}</p>;
 
   return (
-    <section className="flex flex-col justify-start pt-16 items-center w-full tracking-[-0.25px] pl-[103px]">
+    <section className="flex flex-col justify-start pt-16 items-center w-full tracking-[-0.25px] pl-[103px] hover:cursor-pointer">
       <section className="flex flex-row text-white justify-between w-[730px] mb-14">
         <div className="flex flex-col gap-2">
           <p className="text-[32px] font-bold tracking-[-1px]">Invoices</p>
           <p className="text-[12px]">There are {invoices.length} total invoices</p>
         </div>
         <div className="flex flex-row items-center gap-4">
-          <button className="flex flex-row items-center gap-4">
-            <p className="text-[12px] font-bold">Filter by status</p>
-            <Image className="h-[7px] focus:transform:translate-y-1" src={arrow_down} width={11} alt=""/>
+          <button className="flex flex-row items-baseline gap-3 relative" onClick={handleFilter}>
+            <p className="text-[12px] font-bold tracking-normal">Filter by status</p>
+            <Image className={`h-[7px] transform transition-transform duration-300 ${filterOn ? 'scale-y-[-1]' : ''}`} src={arrow_down} width={11} alt=""/>
+            {filterOn && (
+              <div className="absolute bg-dark-blue mt-6 w-48 h-32 top-[100%] left-[-50%] shadow-filterShadow rounded-lg">
+
+              </div>
+              )}
           </button>  
           <button className="flex flex-row gap-4 justify-start items-center bg-violet pl-2 pr-[15px] py-2 rounded-3xl text-[12px] font-bold hover:bg-light-violet">
             <span className="bg-white flex justify-center items-center rounded-3xl w-8 h-8">
@@ -100,7 +110,7 @@ export const InvoiceIndex: React.FC = () => {
       <ul className="flex flex-col w-full justify-center items-center">  
         {invoices.map((invoice, index) => (
           <li key={index}>
-            <div className="flex flex-row bg-dark-blue p-6 rounded-lg mb-4 w-[730px] justify-between">
+            <div className="flex flex-row bg-dark-blue border-dark-blue border-[1px] p-6 rounded-lg mb-4 w-[730px] justify-between transition-all duration-300 ease-out shadow-none hover:border-violet">
               <div className="flex flex-row justify-center items-center">
                 <span className="text-blue-steel text-xs font-bold">#</span>
                 <p className="text-white text-xs font-bold mr-7">{invoice._id}</p>
@@ -109,11 +119,15 @@ export const InvoiceIndex: React.FC = () => {
               <div className="flex flex-row justify-center items-center">
                 <div className="flex flex-row justify-between items-center w-[249px]">
                   <p className="text-white text-[0.75rem]">{invoice.pay_to.client_name}</p>
-                  <p className="text-white text-base font-bold">${invoice.item_list.reduce((acc, cur) => acc + cur.quant * cur.price, 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                  <p className="text-white text-base font-bold tracking-[-0.8px]">
+                    ${invoice.item_list.reduce((acc, cur) => acc + cur.quant * cur.price, 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  </p>
                 </div>
                 <div className={`flex flex-row justify-center items-center h-10 w-[6.5rem] rounded-md ml-8 ${colorStatus(invoice.status)[2]}`}>
-                  <span className={`w-[8px] h-[8px] mr-[8px] mb-[1.5px] ${colorStatus(invoice.status)[0]} rounded-full`}></span>
-                  <p className={`text-xs font-bold text-center ${colorStatus(invoice.status)[1]}`}>{invoice.status}</p>
+                  <div className="flex flex-row items-baseline">
+                    <span className={`w-[8px] h-[8px] mr-[8px] ${colorStatus(invoice.status)[0]} rounded-full`}></span>
+                    <p className={`text-xs font-bold text-center ${colorStatus(invoice.status)[1]}`}>{invoice.status}</p>
+                  </div>
                 </div>
                   <Image className="ml-4" src={arrow_right} alt="" width={7} height={11} />
               </div>
