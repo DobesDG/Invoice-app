@@ -7,6 +7,7 @@ import arrow_down from '../public/assets/icon-arrow-down.svg'
 import plus from '../public/assets/icon-plus.svg'
 import DateComponent from "./Date";
 import arrow_right from '../public/assets/icon-arrow-right.svg'
+import {Filter}from '../components/Filter'
 
 interface Invoice {
     _id: String,
@@ -42,6 +43,7 @@ export const InvoiceIndex: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filterOn,setFilterOn] = useState(false)
+  const [status,setStatus] = useState<string[]>([])
 
   const handleFilter = () => {
     setFilterOn(!filterOn)
@@ -94,8 +96,10 @@ export const InvoiceIndex: React.FC = () => {
             <p className="text-[12px] font-bold tracking-normal">Filter by status</p>
             <Image className={`h-[7px] transform transition-transform duration-300 ${filterOn ? 'scale-y-[-1]' : ''}`} src={arrow_down} width={11} alt=""/>
             {filterOn && (
-              <div className="absolute bg-dark-blue mt-6 w-48 h-32 top-[100%] left-[-50%] shadow-filterShadow rounded-lg">
-
+              <div className="absolute flex flex-col justify-center items-start p-6 bg-dark-blue mt-6 w-48 h-32 top-[100%] left-[-50%] shadow-filterShadow rounded-lg">
+                <Filter label="Draft" value={status} setValue={setStatus} />
+                <Filter label="Pending" value={status} setValue={setStatus} />
+                <Filter label="Paid" value={status} setValue={setStatus} />
               </div>
               )}
           </button>  
