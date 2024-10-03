@@ -15,14 +15,17 @@ interface FilterProps {
     };
   
     return (
-      <div className="">
-        <input 
-          type="checkbox" 
-          checked={value.includes(label)} 
-          onChange={() => handleStatusChange(label)} 
-          {...props} 
+      <div className="flex flex-row group items-center gap-3 group-hover:cursor-pointer" onClick={() => handleStatusChange(label)}>
+          <div className="w-[19px] h-[19px]">
+            <input
+            className="appearance-none w-full h-full rounded-sm border bg-dark-blue border-dark-blue group-hover:border-violet checked:bg-violet checked:border-violet"
+            name={label}
+            type="checkbox" 
+            checked={value.includes(label)} 
+            {...props} 
           />
-          <label>{label}</label>
+          </div>
+          <label className="text-xs font-bold" htmlFor={label}>{label}</label>
       </div>
     );
   };

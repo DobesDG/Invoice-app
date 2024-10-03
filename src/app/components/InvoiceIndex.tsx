@@ -96,7 +96,7 @@ export const InvoiceIndex: React.FC = () => {
             <p className="text-[12px] font-bold tracking-normal">Filter by status</p>
             <Image className={`h-[7px] transform transition-transform duration-300 ${filterOn ? 'scale-y-[-1]' : ''}`} src={arrow_down} width={11} alt=""/>
             {filterOn && (
-              <div className="absolute flex flex-col justify-center items-start p-6 bg-dark-blue mt-6 w-48 h-32 top-[100%] left-[-50%] shadow-filterShadow rounded-lg">
+              <div className="absolute flex flex-col justify-between items-start p-6 bg-light-purple mt-6 w-48 h-32 top-[100%] left-[-50%] shadow-filterShadow rounded-lg">
                 <Filter label="Draft" value={status} setValue={setStatus} />
                 <Filter label="Pending" value={status} setValue={setStatus} />
                 <Filter label="Paid" value={status} setValue={setStatus} />
