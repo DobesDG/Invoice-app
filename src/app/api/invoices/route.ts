@@ -6,7 +6,12 @@ export const GET = async (request: Request) => {
 
     const db = await connectDB(); 
 
-    const invoices = await Invoice.find({})
+    const url = new URL(request.url);
+    const statusFilter = url.searchParams.getAll('status');
+ 
+    const filter = statusFilter.length > 0 ? { status: { $in: statusFilter } } : {};
+ 
+    const invoices = await Invoice.find((filter))
 
     if (invoices.length === 0) {
       console.log('No invoices found');

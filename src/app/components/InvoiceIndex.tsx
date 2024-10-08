@@ -63,12 +63,12 @@ export const InvoiceIndex: React.FC = () => {
   }
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchInvoices = async () => {
       try {
-        const response = await fetch('../api/invoices');
-        if (!response.ok) {
-          throw new Error('Error fetching data');
-        }
+        const query = status.map(s => `status=${s}`).join('&');
+        const response = await fetch(`../api/invoices?${query}`);
+        
+        if (!response.ok) throw new Error('Error fetching data');
         const data = await response.json();
         setInvoices(data);
       } catch (error: any) {
@@ -77,15 +77,14 @@ export const InvoiceIndex: React.FC = () => {
         setLoading(false);
       }
     };
-
-    fetchData();
-  }, []);
+    fetchInvoices();
+  }, [status]);
 
   if (loading) return <p className="flex flex-row w-full h-[100vh] justify-center items-center text-white text-xl">Loading...</p>;
   if (error) return <p className="flex flex-row w-full h-[100vh] justify-center items-center text-white text-xl">Error: {error}</p>;
 
   return (
-    <section className="flex flex-col justify-start pt-16 items-center w-full tracking-[-0.25px] pl-[103px] hover:cursor-pointer">
+    <section className="flex flex-col justify-start pt-16 items-center w-full min-h-[100vh] tracking-[-0.25px] pl-[103px] hover:cursor-pointer">
       <section className="flex flex-row text-white justify-between w-[730px] mb-14">
         <div className="flex flex-col gap-2">
           <p className="text-[32px] font-bold tracking-[-1px]">Invoices</p>
