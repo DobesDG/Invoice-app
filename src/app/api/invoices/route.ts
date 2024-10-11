@@ -4,7 +4,7 @@ import Invoice from '../lib/InvoiceSchema';
 export const GET = async (request: Request) => {
   try {
 
-    const db = await connectDB(); 
+    await connectDB(); 
 
     const url = new URL(request.url);
     const statusFilter = url.searchParams.getAll('status');

@@ -8,36 +8,37 @@ import plus from '../public/assets/icon-plus.svg'
 import DateComponent from "./Date";
 import arrow_right from '../public/assets/icon-arrow-right.svg'
 import {Filter}from '../components/Filter'
+import { useRouter } from 'next/navigation';
 
 interface Invoice {
-    _id: String,
+    _id: string,
     status: string ,
     pay_from:{
-      streed_ad_from: String,
-      city_from: String,
-      pcode_city_from: String,
-      country_from: String
+      streed_ad_from: string,
+      city_from: string,
+      pcode_city_from: string,
+      country_from: string
     },
     pay_to: {
-      client_name:String,
-      client_email: String,
-      street_ad_to: String,
-      city_to:String,
-      pcode_city_to: String,
-      country_to: String,
-      payment:String,
-      description: String
+      client_name:string,
+      client_email: string,
+      street_ad_to: string,
+      city_to:string,
+      pcode_city_to: string,
+      country_to: string,
+      payment:string,
+      description: string
     },
     date_added: string,
     item_list: [
       {
-          item_name: String,
+          item_name: string,
           quant:  number,
           price: number
       }
     ]
 }
-  
+
 export const InvoiceIndex: React.FC = () => {
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [loading, setLoading] = useState(true);
@@ -48,6 +49,12 @@ export const InvoiceIndex: React.FC = () => {
   const handleFilter = () => {
     setFilterOn(!filterOn)
   }
+
+  const router = useRouter();
+
+    const handleNavigation = (invoiceId: string) => {
+        router.push(`/api/invoices/${invoiceId}`);
+    };
 
   const colorStatus = (typeStatus: string) => {
     switch (typeStatus) {
@@ -113,7 +120,7 @@ export const InvoiceIndex: React.FC = () => {
       <ul className="flex flex-col w-full justify-center items-center">  
         {invoices.map((invoice, index) => (
           <li key={index}>
-            <div className="flex flex-row bg-dark-blue border-dark-blue border-[1px] p-6 rounded-lg mb-4 w-[730px] justify-between transition-all duration-300 ease-out shadow-none hover:border-violet">
+            <div onClick={() => handleNavigation(invoice._id)} className="flex flex-row bg-dark-blue border-dark-blue border-[1px] p-6 rounded-lg mb-4 w-[730px] justify-between transition-all duration-300 ease-out shadow-none hover:border-violet">
               <div className="flex flex-row justify-center items-center">
                 <span className="text-blue-steel text-xs font-bold">#</span>
                 <p className="text-white text-xs font-bold mr-7">{invoice._id}</p>
