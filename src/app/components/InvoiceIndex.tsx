@@ -7,7 +7,7 @@ import arrow_down from '../public/assets/icon-arrow-down.svg'
 import plus from '../public/assets/icon-plus.svg'
 import DateComponent from "./Date";
 import arrow_right from '../public/assets/icon-arrow-right.svg'
-import {Filter}from '../components/Filter'
+import { Filter }from '../components/Filter'
 import { useRouter } from 'next/navigation';
 
 interface Invoice {
@@ -45,15 +45,14 @@ export const InvoiceIndex: React.FC = () => {
   const [error, setError] = useState(null);
   const [filterOn,setFilterOn] = useState(false)
   const [status,setStatus] = useState<string[]>([])
+  const router = useRouter();
 
   const handleFilter = () => {
     setFilterOn(!filterOn)
   }
 
-  const router = useRouter();
-
     const handleNavigation = (invoiceId: string) => {
-        router.push(`/api/invoices/${invoiceId}`);
+        router.push(`/invoices/${invoiceId}`);
     };
 
   const colorStatus = (typeStatus: string) => {
