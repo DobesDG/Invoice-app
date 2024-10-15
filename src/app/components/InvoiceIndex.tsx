@@ -14,7 +14,7 @@ interface Invoice {
     _id: string,
     status: string ,
     pay_from:{
-      streed_ad_from: string,
+      street_ad_from: string,
       city_from: string,
       pcode_city_from: string,
       country_from: string
