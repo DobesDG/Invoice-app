@@ -79,8 +79,8 @@ export default function InvoiceDetailsPage({ params }: { params: { id: string } 
     return (
         <div className="flex flex-row bg-dark-purple">
          <Header/>
-         <section className="flex flex-col justify-start pt-16 items-center w-full min-h-[100vh] tracking-[-0.25px] pl-[103px]">
-            <section className="flex flex-row text-white justify-between w-[730px]">
+         <section className="flex flex-col justify-start pt-16 items-center w-full min-h-[100vh] tracking-[-0.25px] pl-[103px] text-white">
+            <section className="flex flex-row justify-between w-[730px]">
                 <div className='hover:cursor-pointer pt-3 pb-8'>
                     <Link href={'/'} className='flex flex-row items-baseline gap-4'>
                         <Image className='w-[7px] h-[10px]' src={arrow_left} alt="" width={7} height={10} />
@@ -90,7 +90,7 @@ export default function InvoiceDetailsPage({ params }: { params: { id: string } 
             </section>
             <section className="flex flex-row bg-dark-blue border-dark-blue border-[1px] p-8 rounded-lg mb-4 w-[730px] justify-between">
                 <div className='flex flex-row items-baseline'>
-                    <p className='text-[12px] text-white'>Status</p>
+                    <p className='text-[12px]'>Status</p>
                     <div className={`flex flex-row justify-center items-center h-10 w-[6.5rem] rounded-md ml-8 ${colorStatus(invoice.status)[2]}`}>
                         <div className="flex flex-row items-baseline">
                             <span className={`w-[8px] h-[8px] mr-[8px] ${colorStatus(invoice.status)[0]} rounded-full`}></span>
@@ -98,7 +98,7 @@ export default function InvoiceDetailsPage({ params }: { params: { id: string } 
                         </div>
                     </div>
                 </div >
-                <div className='flex flex-row text-[12px] text-white gap-2'>
+                <div className='flex flex-row text-[12px] gap-2'>
                     <button>Edit</button>
                     <button>Delete</button>
                     <button>Mark as Paid</button>
@@ -109,11 +109,11 @@ export default function InvoiceDetailsPage({ params }: { params: { id: string } 
                     <div className='flex flex-col justify-start items-start'>
                         <div className="flex flex-row justify-center items-center mb-2">
                             <span className="text-blue-steel text-xs font-bold">#</span>
-                            <p className="text-white text-xs font-bold">{invoice._id}</p>
+                            <p className=" text-xs font-bold">{invoice._id}</p>
                         </div>
-                        <p className="text-white text-[12px]">{invoice.pay_to.description}</p>
+                        <p className="text-[12px]">{invoice.pay_to.description}</p>
                     </div>
-                    <div className='flex flex-col items-start text-white text-[11px]'>
+                    <div className='flex flex-col items-start text-[0.6875rem]'>
                         <p className='mb-1'>{invoice.pay_from.street_ad_from}</p>
                         <p className='mb-1'>{invoice.pay_from.city_from}</p>
                         <p className='mb-1'>{invoice.pay_from.pcode_city_from}</p>
@@ -123,18 +123,18 @@ export default function InvoiceDetailsPage({ params }: { params: { id: string } 
                 <section className='flex flex-row'>
                     <div className='mr-20'>
                         <div>
-                            <p className='text-white text-[12px] mb-4'>Invoice Date</p>
-                            <h3 className='text-white font-bold mb-8'><DateComponent dateString={invoice.date_added}/></h3>
+                            <p className='text-[12px] mb-4'>Invoice Date</p>
+                            <h3 className='font-bold mb-8'><DateComponent dateString={invoice.date_added}/></h3>
                         </div>
                         <div>
-                            <p className='text-white text-[12px] mb-4'>Payment Due</p>
-                            <h3 className='text-white font-bold mb-8'><DateComponent dateString={invoice.date_added}/></h3>
+                            <p className='text-[12px] mb-4'>Payment Due</p>
+                            <h3 className='font-bold mb-8'><DateComponent dateString={invoice.date_added}/></h3>
                         </div>
                     </div>
                     <div className='mr-40'>
-                        <p className='text-white text-[12px] mb-4'>Invoice Date</p>
-                        <h3 className='text-white font-bold mb-3'>{invoice.pay_to.client_name}</h3>
-                        <div className='flex flex-col items-start text-white text-[11px]'>
+                        <p className='text-[12px] mb-4'>Invoice Date</p>
+                        <h3 className='font-bold mb-3'>{invoice.pay_to.client_name}</h3>
+                        <div className='flex flex-col items-start text-[0.6875rem]'>
                             <p className='mb-1'>{invoice.pay_to.street_ad_to}</p>
                             <p className='mb-1'>{invoice.pay_to.city_to}</p>
                             <p className='mb-1'>{invoice.pay_to.pcode_city_to}</p>
@@ -142,12 +142,33 @@ export default function InvoiceDetailsPage({ params }: { params: { id: string } 
                         </div>
                     </div>
                     <div>
-                        <p className='text-white text-[12px] mb-4'>Sent To</p>
-                        <h3 className='text-white font-bold mb-3'>{invoice.pay_to.client_email}</h3>
+                        <p className='text-[12px] mb-4'>Sent To</p>
+                        <h3 className='font-bold mb-3'>{invoice.pay_to.client_email}</h3>
                     </div>
                 </section>
-                <section>
-                    <div></div>
+                <section className='flex flex-col justify-center align-baseline w-full'>
+                    <div className="bg-light-purple rounded-t-lg p-8">
+                        <table className="w-full table-fixed">
+                            <thead>
+                                <tr className="text-[0.6875rem]">
+                                    <td className="w-[45%] pb-4 text-left">Item Name</td>
+                                    <td className="w-[15%] pb-4 text-right">QTY.</td>
+                                    <td className="w-[20%] pb-4 text-right">Price</td>
+                                    <td className="w-[20%] pb-4 text-right">Total</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {invoice.item_list.map((inv, index) => (
+                                    <tr key={index} className="text-[12px] font-bold">
+                                        <td className="py-4">{inv.item_name}</td>
+                                        <td className="py-4 text-right">{inv.quant}</td>
+                                        <td className="py-4 text-right">${inv.price.toFixed(2)}</td>
+                                        <td className="py-4 text-right">${(inv.quant * inv.price).toFixed(2)}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                     <div></div>
                 </section>
             </section>
