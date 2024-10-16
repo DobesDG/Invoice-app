@@ -51,9 +51,9 @@ export const InvoiceIndex: React.FC = () => {
     setFilterOn(!filterOn)
   }
 
-    const handleNavigation = (invoiceId: string) => {
-        router.push(`/invoices/${invoiceId}`);
-    };
+  const handleNavigation = (invoiceId: string) => {
+      router.push(`/invoices/${invoiceId}`);
+  };
 
   const colorStatus = (typeStatus: string) => {
     switch (typeStatus) {
@@ -126,7 +126,7 @@ export const InvoiceIndex: React.FC = () => {
                 <p className="text-white text-[0.6875rem]">Due <DateComponent dateString={invoice.date_added}/></p>
               </div>
               <div className="flex flex-row justify-center items-center">
-                <div className="flex flex-row justify-between items-center w-[249px]">
+                <div className="flex flex-row justify-between items-center w-[249px] max-lg:w-[215px]">
                   <p className="text-white text-[0.75rem]">{invoice.pay_to.client_name}</p>
                   <p className="text-white text-base font-bold tracking-[-0.8px]">
                     ${invoice.item_list.reduce((acc, cur) => acc + cur.quant * cur.price, 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
