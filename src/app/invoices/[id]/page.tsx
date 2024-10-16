@@ -80,7 +80,7 @@ export default function InvoiceDetailsPage({ params }: { params: { id: string } 
         <div className="flex flex-row bg-dark-purple">
          <Header/>
          <section className="flex flex-col justify-start pt-16 items-center w-full min-h-[100vh] tracking-[-0.25px] pl-[103px] text-white">
-            <section className="flex flex-row justify-between w-[730px]">
+            <section className="flex flex-row justify-between w-[730px] max-xl:w-[672px]">
                 <div className='hover:cursor-pointer pt-3 pb-8'>
                     <Link href={'/'} className='flex flex-row items-baseline gap-4'>
                         <Image className='w-[7px] h-[10px]' src={arrow_left} alt="" width={7} height={10} />
@@ -88,7 +88,7 @@ export default function InvoiceDetailsPage({ params }: { params: { id: string } 
                     </Link>
                 </div>
             </section>
-            <section className="flex flex-row bg-dark-blue border-dark-blue border-[1px] p-8 rounded-lg mb-4 w-[730px] justify-between">
+            <section className="flex flex-row bg-dark-blue border-dark-blue border-[1px] p-8 rounded-lg mb-4 w-[730px] justify-between max-xl:w-[672px]">
                 <div className='flex flex-row items-baseline'>
                     <p className='text-[12px]'>Status</p>
                     <div className={`flex flex-row justify-center items-center h-10 w-[6.5rem] rounded-md ml-8 ${colorStatus(invoice.status)[2]}`}>
@@ -104,7 +104,7 @@ export default function InvoiceDetailsPage({ params }: { params: { id: string } 
                     <button>Mark as Paid</button>
                 </div>
             </section>
-            <section className="flex flex-col bg-dark-blue border-dark-blue border-[1px] p-6 rounded-lg w-[730px]">
+            <section className="flex flex-col bg-dark-blue border-dark-blue border-[1px] p-6 rounded-lg w-[730px] max-xl:w-[672px]">
                 <section className='flex flex-row justify-between mb-8'>
                     <div className='flex flex-col justify-start items-start'>
                         <div className="flex flex-row justify-center items-center mb-2">
@@ -162,14 +162,17 @@ export default function InvoiceDetailsPage({ params }: { params: { id: string } 
                                     <tr key={index} className="text-[12px] font-bold">
                                         <td className="py-4">{inv.item_name}</td>
                                         <td className="py-4 text-right">{inv.quant}</td>
-                                        <td className="py-4 text-right">${inv.price.toFixed(2)}</td>
-                                        <td className="py-4 text-right">${(inv.quant * inv.price).toFixed(2)}</td>
+                                        <td className="py-4 text-right">${inv.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                                        <td className="py-4 text-right">${(inv.quant * inv.price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
                     </div>
-                    <div></div>
+                    <div className='bg-dark-gray rounded-b-lg py-8 px-6 flex flex-row justify-between items-baseline'>
+                        <p className='text-[0.6875rem]'>Amount Due</p>
+                        <p className='text-[20px] font-bold'>${invoice.item_list.reduce((acc, cur) => acc + cur.quant * cur.price, 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                    </div>
                 </section>
             </section>
          </section>

@@ -90,8 +90,8 @@ export const InvoiceIndex: React.FC = () => {
   if (error) return <p className="flex flex-row w-full h-[100vh] justify-center items-center text-white text-xl">Error: {error}</p>;
 
   return (
-    <section className="flex flex-col justify-start pt-16 items-center w-full min-h-[100vh] tracking-[-0.25px] pl-[103px] hover:cursor-pointer">
-      <section className="flex flex-row text-white justify-between w-[730px] mb-14">
+    <section className="flex flex-col justify-start pt-16 items-center w-full min-h-[100vh] tracking-[-0.25px] pl-[103px] hover:cursor-pointer max-xl:pl-0 max-xl:pt-32">
+      <section className="flex flex-row text-white justify-between w-[730px] mb-14 max-xl:w-[672px]">
         <div className="flex flex-col gap-2">
           <p className="text-[32px] font-bold tracking-[-1px]">Invoices</p>
           <p className="text-[12px]">There are {invoices.length} total invoices</p>
@@ -119,7 +119,7 @@ export const InvoiceIndex: React.FC = () => {
       <ul className="flex flex-col w-full justify-center items-center">  
         {invoices.map((invoice, index) => (
           <li key={index}>
-            <div onClick={() => handleNavigation(invoice._id)} className="flex flex-row bg-dark-blue border-dark-blue border-[1px] p-6 rounded-lg mb-4 w-[730px] justify-between transition-all duration-300 ease-out shadow-none hover:border-violet">
+            <div onClick={() => handleNavigation(invoice._id)} className="flex flex-row bg-dark-blue border-dark-blue border-[1px] p-6 rounded-lg mb-4 w-[730px] justify-between transition-all duration-300 ease-out shadow-none hover:border-violet max-xl:w-[672px]">
               <div className="flex flex-row justify-center items-center">
                 <span className="text-blue-steel text-xs font-bold">#</span>
                 <p className="text-white text-xs font-bold mr-7">{invoice._id}</p>
