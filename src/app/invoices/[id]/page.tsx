@@ -6,6 +6,7 @@ import arrow_left from '@/app/public/assets/icon-arrow-left.svg'
 import Image from 'next/image';
 import Link from 'next/link';
 import DateComponent from '@/app/components/Date' 
+import { Mutate }from '@/app/components/Mutate'
 
 interface Invoice {
     _id: string;
@@ -98,11 +99,7 @@ export default function InvoiceDetailsPage({ params }: { params: { id: string } 
                         </div>
                     </div>
                 </div >
-                <div className='flex flex-row text-[12px] gap-2'>
-                    <button>Edit</button>
-                    <button>Delete</button>
-                    <button>Mark as Paid</button>
-                </div>
+                <Mutate invoiceId={invoice._id} invoiceStatus={invoice.status}/>
             </section>
             <section className="flex flex-col bg-dark-blue border-dark-blue border-[1px] p-6 rounded-lg w-[730px] max-xl:w-[672px]">
                 <section className='flex flex-row justify-between mb-8'>
