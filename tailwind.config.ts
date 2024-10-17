@@ -20,8 +20,10 @@ const config: Config = {
         'orange':'#ff8f00',
         'dark-gray':'#0c0e16',
         'light-red':'#ec5757',
+        'steel-blue':'#888eb0',
         'transp-orange':'#ff8f000f',
-        'transp-white':'#dfe3fa0f'
+        'transp-white':'#dfe3fa0f',
+        '45%-transp':'#00000073'
       },
       boxShadow: {
         'filterShadow':'0 10px 20px rgba(0,0,0,.25)'
