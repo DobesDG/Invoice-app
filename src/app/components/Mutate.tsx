@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface MutateProps {
     invoiceId: string;
@@ -58,10 +58,25 @@ interface DeleteProps {
 
 
 const DeleteModal: React.FC<DeleteProps> = ({ invoiceId , handler, onClose }) => {
+    const modalRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+                onClose();
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [onClose]);
 
     return (
         <section className="fixed flex flex-row justify-center items-center z-10 w-full h-full top-0 left-0 right-0 bg-45%-transp">
-            <div className="p-12 flex flex-col bg-dark-blue w-[480px] rounded-lg">
+            <div ref={modalRef} className="p-12 flex flex-col bg-dark-blue w-[480px] rounded-lg">
                 <h3 className="text-[32px] leading-[36px] tracking-[-1px] mb-2">Confirm Deletion</h3>
                 <p className="font-normal text-steel-blue leading-[22px] mb-4">Are your sure your want to delete invoice #{invoiceId}? This action cannot be undone.</p>
                 <div className="flex flex-row text-[12px] leading-[15px] font-bold gap-2 h-[48px] justify-end">
