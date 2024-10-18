@@ -1,7 +1,7 @@
 'use client'
 
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import arrow_down from '../public/assets/icon-arrow-down.svg'
 import plus from '../public/assets/icon-plus.svg'
@@ -46,6 +46,7 @@ export const InvoiceIndex: React.FC = () => {
   const [filterOn,setFilterOn] = useState(false)
   const [status,setStatus] = useState<string[]>([])
   const router = useRouter();
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const handleFilter = () => {
     setFilterOn(!filterOn)
@@ -73,7 +74,7 @@ export const InvoiceIndex: React.FC = () => {
       try {
         const query = status.map(s => `status=${s}`).join('&');
         const response = await fetch(`../api/invoices?${query}`);
-        
+
         if (!response.ok) throw new Error('Error fetching data');
         const data = await response.json();
         setInvoices(data);
@@ -85,12 +86,12 @@ export const InvoiceIndex: React.FC = () => {
     };
     fetchInvoices();
   }, [status]);
-
+         
   if (loading) return <p className="flex flex-row w-full h-[100vh] justify-center items-center text-white text-xl">Loading...</p>;
   if (error) return <p className="flex flex-row w-full h-[100vh] justify-center items-center text-white text-xl">Error: {error}</p>;
-
+        
   return (
-    <section className="flex flex-col justify-start pt-16 items-center w-full min-h-[100vh] tracking-[-0.25px] pl-[103px] hover:cursor-pointer max-xl:pl-0 max-xl:pt-32">
+    <section className="flex flex-col justify-start pt-16 items-center w-full min-h-[100vh] tracking-[-0.25px] pl-[103px] max-xl:pl-0 max-xl:pt-32">
       <section className="flex flex-row text-white justify-between w-[730px] mb-14 max-xl:w-[672px]">
         <div className="flex flex-col gap-2">
           <p className="text-[32px] font-bold tracking-[-1px]">Invoices</p>
@@ -101,10 +102,10 @@ export const InvoiceIndex: React.FC = () => {
             <p className="text-[12px] font-bold tracking-normal">Filter by status</p>
             <Image className={`h-[7px] transform transition-transform duration-300 ${filterOn ? 'scale-y-[-1]' : ''}`} src={arrow_down} width={11} alt=""/>
             {filterOn && (
-              <div className="absolute flex flex-col justify-between items-start p-6 bg-light-purple mt-6 w-48 h-32 top-[100%] left-[-50%] shadow-filterShadow rounded-lg">
-                <Filter label="Draft" value={status} setValue={setStatus} />
-                <Filter label="Pending" value={status} setValue={setStatus} />
-                <Filter label="Paid" value={status} setValue={setStatus} />
+              <div ref={modalRef} className="absolute flex flex-col justify-between items-start p-6 bg-light-purple mt-6 w-48 h-32 top-[100%] left-[-50%] shadow-filterShadow rounded-lg cursor-default">
+                <Filter label="Draft" value={status} setValue={setStatus} onClose={handleFilter} filterOn={setFilterOn} modalRef={modalRef}/>
+                <Filter label="Pending" value={status} setValue={setStatus} onClose={handleFilter} filterOn={setFilterOn} modalRef={modalRef}/>
+                <Filter label="Paid" value={status} setValue={setStatus} onClose={handleFilter} filterOn={setFilterOn} modalRef={modalRef}/>
               </div>
               )}
           </button>  
@@ -119,7 +120,7 @@ export const InvoiceIndex: React.FC = () => {
       <ul className="flex flex-col w-full justify-center items-center">  
         {invoices.map((invoice, index) => (
           <li key={index}>
-            <div onClick={() => handleNavigation(invoice._id)} className="flex flex-row bg-dark-blue border-dark-blue border-[1px] p-6 rounded-lg mb-4 w-[730px] justify-between transition-all duration-300 ease-out shadow-none hover:border-violet max-xl:w-[672px]">
+            <div onClick={() => handleNavigation(invoice._id)} className="flex flex-row bg-dark-blue border-dark-blue border-[1px] p-6 rounded-lg mb-4 w-[730px] justify-between transition-all duration-300 ease-out shadow-none hover:border-violet max-xl:w-[672px] hover:cursor-pointer">
               <div className="flex flex-row justify-center items-center">
                 <span className="text-blue-steel text-xs font-bold">#</span>
                 <p className="text-white text-xs font-bold mr-7">{invoice._id}</p>

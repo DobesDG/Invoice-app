@@ -1,16 +1,16 @@
-import { connectDB } from '../lib/connectdb';
-import Invoice from '../lib/InvoiceSchema';
+import { connectDB } from '../../lib/connectdb';
+import Invoice from '../../lib/InvoiceSchema';
 
 export const GET = async (request: Request) => {
   try {
 
-    await connectDB(); 
+    await connectDB();
 
     const url = new URL(request.url);
     const statusFilter = url.searchParams.getAll('status');
- 
+
     const filter = statusFilter.length > 0 ? { status: { $in: statusFilter } } : {};
- 
+
     const invoices = await Invoice.find((filter))
 
     if (invoices.length === 0) {

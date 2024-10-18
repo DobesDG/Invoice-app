@@ -1,5 +1,5 @@
-import { connectDB } from '../../lib/connectdb';
-import Invoice from '../../lib/InvoiceSchema';
+import { connectDB } from '../../../lib/connectdb';
+import Invoice from '../../../lib/InvoiceSchema';
 
 export const GET = async (request: Request, { params }: { params: { id: string } }) => {
 
