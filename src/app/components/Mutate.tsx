@@ -1,5 +1,6 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef} from "react";
+import { useRouter } from "next/navigation";
 
 interface MutateProps {
     invoiceId: string;
@@ -14,27 +15,30 @@ interface DeleteProps {
   
   export const Mutate: React.FC<MutateProps> = ({ invoiceId, invoiceStatus }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const isPending = invoiceStatus == 'Pending'
+    const isPending = invoiceStatus == 'Pending';
+    const route = useRouter()
     
     const handleDelete = async () => {
         try {
             const response = await fetch(`/api/invoices/${invoiceId}`,{ method: 'DELETE' });
             if (!response.ok) throw new Error('Error deleting data');
             setIsModalOpen(false);
+            route.push("/")
         } catch (error) {
             console.log('Failed to delete invoice:', error)
         }
     };
-
+    
     const handleMark = async () => {
         try {
             const response = await fetch(`/api/invoices/${invoiceId}`,{ method: 'PATCH' });
             if (!response.ok) throw new Error('Error updating data');
+            window.location.reload();
         } catch (error) {
             console.log('Failed to update invoice:', error)
         }
     };
-
+    
 
     return(
         <div className="flex flex-row text-[12px] leading-[15px] font-bold gap-2 h-[48px]">
