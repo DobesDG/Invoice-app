@@ -18,7 +18,7 @@ interface DeleteProps {
     
     const handleDelete = async () => {
         try {
-            const response = await fetch(`/api/delete/${invoiceId}`,{ method: 'DELETE' });
+            const response = await fetch(`/api/invoices/${invoiceId}`,{ method: 'DELETE' });
             if (!response.ok) throw new Error('Error deleting data');
             setIsModalOpen(false);
         } catch (error) {
@@ -28,7 +28,7 @@ interface DeleteProps {
 
     const handleMark = async () => {
         try {
-            const response = await fetch(`/api/markpaid/${invoiceId}`,{ method: 'PATCH' });
+            const response = await fetch(`/api/invoices/${invoiceId}`,{ method: 'PATCH' });
             if (!response.ok) throw new Error('Error updating data');
         } catch (error) {
             console.log('Failed to update invoice:', error)
