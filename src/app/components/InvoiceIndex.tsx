@@ -24,7 +24,7 @@ interface Invoice {
       city_to:string,
       pcode_city_to: string,
       country_to: string,
-      payment:string,
+      payment:number,
       description: string
     },
     date_added: string,
@@ -40,6 +40,7 @@ interface Invoice {
 export const InvoiceIndex: React.FC = () => {
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [loading, setLoading] = useState(true);
+  const [newInvoiceOn, setNewInvoiceOn] = useState(false)
   const [error, setError] = useState(null);
   const [status,setStatus] = useState<string[]>([])
   const router = useRouter();
@@ -75,7 +76,7 @@ export const InvoiceIndex: React.FC = () => {
         </div>
         <div className="flex flex-row items-center gap-4">
          <FilterGroup statusValue={status} setStatusValue={setStatus} modalRef={modalRef} />
-          <button className="flex flex-row gap-4 justify-start items-center bg-violet pl-2 pr-[15px] py-2 rounded-3xl text-[12px] font-bold hover:bg-light-violet">
+          <button onClick={() => !setNewInvoiceOn} className="flex flex-row gap-4 justify-start items-center bg-violet pl-2 pr-[15px] py-2 rounded-3xl text-[12px] font-bold hover:bg-light-violet">
             <span className="bg-white flex justify-center items-center rounded-3xl w-8 h-8">
               <Image src={plus} alt=""/>
             </span>
@@ -92,7 +93,8 @@ export const InvoiceIndex: React.FC = () => {
             Status={invoice.status} 
             DateString={invoice.date_added} 
             ClientName={invoice.pay_to.client_name} 
-            ItemList={invoice.item_list}/>
+            ItemList={invoice.item_list}
+            Payment={invoice.pay_to.payment}/>
           </li>
         ))}
       </ul>

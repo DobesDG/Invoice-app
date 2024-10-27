@@ -24,7 +24,7 @@ interface Invoice {
       city_to: string;
       pcode_city_to: string;
       country_to: string;
-      payment: string;
+      payment: number;
       description: string;
     };
     date_added: string;
@@ -121,11 +121,11 @@ export default function InvoiceDetailsPage({ params }: { params: { id: string } 
                     <div className='mr-20'>
                         <div>
                             <p className='text-[12px] mb-4'>Invoice Date</p>
-                            <h3 className='font-bold mb-8'><DateComponent dateString={invoice.date_added}/></h3>
+                            <h3 className='font-bold mb-8'><DateComponent dateString={invoice.date_added} days={0}/></h3>
                         </div>
                         <div>
                             <p className='text-[12px] mb-4'>Payment Due</p>
-                            <h3 className='font-bold mb-8'><DateComponent dateString={invoice.date_added}/></h3>
+                            <h3 className='font-bold mb-8'><DateComponent dateString={invoice.date_added} days={invoice.pay_to.payment}/></h3>
                         </div>
                     </div>
                     <div className='mr-40'>

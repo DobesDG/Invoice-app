@@ -13,12 +13,13 @@ interface InvoiceInfoProps {
         item_name: string,
         quant: number,
         price: number
-    }]
+    }],
+    Payment: number
 
 }
 
 
-export const InvoiceInfo: React.FC<InvoiceInfoProps> = ({router, Id, Status, DateString, ClientName, ItemList}) => {
+export const InvoiceInfo: React.FC<InvoiceInfoProps> = ({router, Id, Status, DateString, ClientName, ItemList, Payment}) => {
 
     const handleNavigation = (invoiceId: string) => {
         router.push(`/invoices/${invoiceId}`);
@@ -42,7 +43,7 @@ export const InvoiceInfo: React.FC<InvoiceInfoProps> = ({router, Id, Status, Dat
               <div className="flex flex-row justify-center items-center">
                 <span className="text-blue-steel text-xs font-bold">#</span>
                 <p className="text-white text-xs font-bold mr-7">{Id}</p>
-                <p className="text-white text-[0.6875rem]">Due <DateComponent dateString={DateString}/></p>
+                <p className="text-white text-[0.6875rem]">Due <DateComponent dateString={DateString} days={Payment}/></p>
               </div>
               <div className="flex flex-row justify-center items-center">
                 <div className="flex flex-row justify-between items-center w-[249px] max-lg:w-[215px]">

@@ -16,7 +16,7 @@ const InvoiceSchema = new mongoose.Schema({
     city_to: {type: String},
     pcode_city_to: {type: String},
     country_to: {type: String},
-    payment: {type: String},
+    payment: {type: Number},
     description: {type: String}
   },
   date_added: { type: Date },
