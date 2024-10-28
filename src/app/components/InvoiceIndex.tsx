@@ -7,6 +7,7 @@ import plus from '../public/assets/icon-plus.svg'
 import { useRouter } from 'next/navigation';
 import { FilterGroup } from "./FilterGroup";
 import { InvoiceInfo } from "./InvoiceInfo";
+import { CreateEdit } from "./CreateEdit";
 
 interface Invoice {
     _id: string,
@@ -76,7 +77,7 @@ export const InvoiceIndex: React.FC = () => {
         </div>
         <div className="flex flex-row items-center gap-4">
          <FilterGroup statusValue={status} setStatusValue={setStatus} modalRef={modalRef} />
-          <button onClick={() => !setNewInvoiceOn} className="flex flex-row gap-4 justify-start items-center bg-violet pl-2 pr-[15px] py-2 rounded-3xl text-[12px] font-bold hover:bg-light-violet">
+          <button onClick={() => setNewInvoiceOn(!newInvoiceOn)} className="flex flex-row gap-4 justify-start items-center bg-violet pl-2 pr-[15px] py-2 rounded-3xl text-[12px] font-bold hover:bg-light-violet">
             <span className="bg-white flex justify-center items-center rounded-3xl w-8 h-8">
               <Image src={plus} alt=""/>
             </span>
@@ -98,6 +99,10 @@ export const InvoiceIndex: React.FC = () => {
           </li>
         ))}
       </ul>
+      {newInvoiceOn && (
+        <section className="fixed flex flex-row justify-start items-start z-10 w-full h-full top-0 left-[6.4375rem] right-0 bg-45%-transp">
+          <CreateEdit modalRef={modalRef} onClose={() => setNewInvoiceOn(!newInvoiceOn)}/>
+      </section>)}
     </section>
   );
 }
