@@ -2,6 +2,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useEffect } from "react";
 import { MutableRefObject } from "react";
 import { Input } from "./Input";
+import { format, parse } from 'date-fns';
 
 interface Invoice {
     _id: string,
@@ -42,7 +43,6 @@ interface CreateEditProps {
 export const CreateEdit: React.FC<CreateEditProps> = ({modalRef, onClose}) => {
 const { register, handleSubmit, formState: { errors } } = useForm<Invoice>();
 const onSubmit: SubmitHandler<Invoice> = data => console.log({data});
-console.log({errors})
 
 useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -60,14 +60,29 @@ useEffect(() => {
 
     return(
         <section ref={modalRef} className="h-[100vh] overflow-y-scroll">
-            <div className="p-12 flex flex-col bg-dark-purple h-[1400px] w-[702px]">
+            <div className="p-6 flex flex-col bg-dark-purple h-[1400px] w-[702px]">
+                <p className="text-white text-2xl font-bold tracking-[-1px] mb-6">New Invoice</p>
                 <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="flex flex-col">  
-                    
-                    <Input label="status" error={errors.status} {...register("status", { required: true })} />
-                    
-                    
+                    <p className="text-violet text-xs font-bold tracking-[-0.25px] mb-6">Bill From</p>
+                    <Input label="Street Address" error={errors.pay_from?.street_ad_from} {...register("pay_from.street_ad_from", { required: true })} />
+                    <div className="grid grid-flow-col gap-2">
+                        <Input label="City" error={errors.pay_from?.city_from} {...register("pay_from.city_from", { required: true })}/>
+                        <Input label="Post Code" error={errors.pay_from?.pcode_city_from} {...register("pay_from.pcode_city_from", { required: true })}/>
+                        <Input label="Country" error={errors.pay_from?.country_from} {...register("pay_from.country_from", { required: true })}/>
+                    </div>
+                    <p className="text-violet text-xs font-bold tracking-[-0.25px] mb-6">Bill To</p>
+                    <Input label="Client's name" error={errors.pay_to?.client_name} {...register("pay_to.client_name", { required: true })} />
+                    <Input label="Client's Email" error={errors.pay_to?.client_email} {...register("pay_to.client_email", { required: true })} />
+                    <Input label="Street Address" error={errors.pay_to?.street_ad_to} {...register("pay_to.street_ad_to", { required: true })} />
+                    <div className="grid grid-flow-col gap-2">
+                        <Input label="City" error={errors.pay_to?.city_to} {...register("pay_to.city_to", { required: true })}/>
+                        <Input label="Post Code" error={errors.pay_to?.pcode_city_to} {...register("pay_to.pcode_city_to", { required: true })}/>
+                        <Input label="Country" error={errors.pay_to?.country_to} {...register("pay_to.country_to", { required: true })}/>
+                    </div>
+                    <Input label="Invoice Date" type="date" value={format(new Date(),'d MMM yyyy')}/>
+                    <Input label="Payment Terms" error={errors.pay_to?.payment} {...register("pay_to.payment", { required: true })}/>
                     <input type="submit" />
                 </form>
             </div>

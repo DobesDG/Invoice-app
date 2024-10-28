@@ -11,12 +11,14 @@ export const Input: ForwardRefExoticComponent<InputProps> = forwardRef((props: I
     const {label, error, ...InputProps} = props;
 
     return (
-        <div>
-            <div>
+        <div className="flex flex-col text-white text-xs mb-6">
+            <div className="flex flex-row justify-between mb-3">
                 <label htmlFor="">{label}</label>
-                {error?.type == 'required' && (<p>required</p>)}
+                {error?.type == 'required' && (
+                    <p className="text-[10px] text-light-red">Can't be empty</p>
+                    )}
             </div>
-            <input {...InputProps} ref={ref}/>
+            <input className="py-[15px] px-[18px] font-bold bg-dark-blue border-light-purple border rounded-t" {...InputProps} ref={ref}/>
         </div>
     );
 });
