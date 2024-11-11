@@ -1,8 +1,12 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { MutableRefObject } from "react";
 import { Input } from "./Input";
-import { format, parse } from 'date-fns';
+import { format, add, differenceInDays } from 'date-fns'
+import { DayPicker } from "react-day-picker";
+import calendar from "../public/assets/calendar.svg"
+import Image from "next/image";
+import "react-day-picker/style.css";
 
 interface Invoice {
     _id: string,
@@ -42,7 +46,26 @@ interface CreateEditProps {
 
 export const CreateEdit: React.FC<CreateEditProps> = ({modalRef, onClose}) => {
 const { register, handleSubmit, formState: { errors } } = useForm<Invoice>();
+const [selected, setSelected] = useState<Date>(add(new Date(), {days: 1}));
+const [pickerOn, setPickerOn] = useState(false);
+const [focused, setFocused] = useState(false);
+const [payTerms, setPayTerms] = useState(differenceInDays(selected,new Date()));
 const onSubmit: SubmitHandler<Invoice> = data => console.log({data});
+
+const handlePayTerms = (days: string) => {
+    setSelected(add(new Date(), {days: Number(days)}))
+    setPayTerms(Number(days))
+}
+
+const handleDate = (date:Date) => {
+    setSelected(date)
+    setPayTerms(differenceInDays(date, new Date()))
+}
+
+const handleInputDiv = () => {
+    setPickerOn(prev => !prev)
+    setFocused(prev => !prev)
+}
 
 useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -81,9 +104,28 @@ useEffect(() => {
                         <Input label="Post Code" error={errors.pay_to?.pcode_city_to} {...register("pay_to.pcode_city_to", { required: true })}/>
                         <Input label="Country" error={errors.pay_to?.country_to} {...register("pay_to.country_to", { required: true })}/>
                     </div>
-                    <Input label="Invoice Date" type="date" value={format(new Date(),'d MMM yyyy')}/>
-                    <Input label="Payment Terms" error={errors.pay_to?.payment} {...register("pay_to.payment", { required: true })}/>
-                    <input type="submit" />
+                    <div>
+                        <div className="flex flex-col text-white text-xs mb-6">
+                            <div className="flex flex-row justify-between mb-3">
+                                <label htmlFor="">Invoice Date</label>
+                            </div>
+                            <div
+                                className={`flex flex-row justify-between w-full items-center py-[15px] px-[18px] font-bold bg-dark-blue border rounded ${
+                                    focused ? 'border-white' : 'border-light-purple'
+                                }`}
+                                onClick={handleInputDiv}
+                                onBlur={handleInputDiv}
+                                tabIndex={0}>
+                                <input className="font-bold bg-dark-blue focus:outline-none border-none" value={format(selected,'dd MMM yyyy')} readOnly/>
+                                <Image src={calendar} width={16} height={16} alt=""/>
+                            </div>
+                        </div>
+                        {pickerOn && (<DayPicker className=""
+                        mode="single" month={selected} onMonthChange={setSelected} selected={selected} onSelect={handleDate} required/>)}
+                    </div>
+                    <Input label="Payment Terms" type="number" error={errors.pay_to?.payment} value={payTerms} {...register("pay_to.payment", { onChange: (e) => handlePayTerms(e.target.value)})}/>
+                    <Input label="Project Description" error={errors.pay_to?.description} {...register("pay_to.description", { required: true })}/>
+                    <input type="submit"/>  
                 </form>
             </div>
         </section>
