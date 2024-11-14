@@ -18,6 +18,7 @@ const config: Config = {
         'light-green':'#33d69f',
         'transp-green':'#33d69f0f',
         'orange':'#ff8f00',
+        'default-gray':'#777f98',
         'dark-gray':'#0c0e16',
         'light-red':'#ec5757',
         'steel-blue':'#888eb0',

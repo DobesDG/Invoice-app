@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { MutableRefObject } from "react";
 import { Input } from "./Input";
 import { DateSelector } from "./DateSelector";
+import { ItemList } from "./ItemList";
 
 interface Invoice {
     _id: string,
@@ -41,7 +42,7 @@ interface CreateEditProps {
 
 
 export const CreateEdit: React.FC<CreateEditProps> = ({modalRef, onClose}) => {
-const { register, handleSubmit, formState: { errors } } = useForm<Invoice>();
+const { register, handleSubmit, getValues,formState: { errors } } = useForm<Invoice>();
 const onSubmit: SubmitHandler<Invoice> = data => console.log({data});
 
 useEffect(() => {
@@ -83,6 +84,7 @@ useEffect(() => {
                     </div>
                     <DateSelector register={register} errors={errors.pay_to?.payment}/>
                     <Input label="Project Description" error={errors.pay_to?.description} {...register("pay_to.description", { required: true })}/>
+                    <ItemList register={register} getValues={getValues} item_error={errors.item_list?.[0]?.item_name} quant_error={errors.item_list?.[0]?.quant} price_error={errors.item_list?.[0]?.price}/>
                     <input type="submit"/>  
                 </form>
             </div>
