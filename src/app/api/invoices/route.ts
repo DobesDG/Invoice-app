@@ -43,3 +43,51 @@ export const GET = async (request: Request) => {
     );
   }
 };
+
+export const POST = async ( request: Request ) => {
+  try {
+    await connectDB();
+
+    const makeLetterID = (length: number) => {
+      let result = "";
+      const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      for (let i = 0; i < length; i++) {
+        result += characters.charAt(
+          Math.floor(Math.random() * characters.length)
+        );
+      }
+      return result;
+    };
+
+    const makeNumberID = (length: number) => {
+      let result = '';
+      const characters = '0123456789';
+      for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+      return result;
+    };
+
+    const makeID = () => makeLetterID(2) + makeNumberID(4);
+    
+    const body = await request.json()
+
+    const doc = {...body, _id: makeID(), date_added: new Date()}
+
+    console.log(doc)
+
+    await Invoice.insertMany(doc)
+
+    return new Response(
+      JSON.stringify({
+        message: `Invoice ${makeID()} created successfully`,
+      }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  } catch (error) {
+    return new Response("Failed to create invoice", { status: 500 });
+  }
+};

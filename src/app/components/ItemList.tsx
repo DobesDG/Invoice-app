@@ -62,12 +62,9 @@ export const ItemList: React.FC<ItemListProps> = ({ form }) => {
                 </label>
                 <p className="flex py-[15px] px-[18px] font-bold items-end justify-center">
                   $
-                  {(
-                    getValues(
-                      `item_list.${index}.quant` as "item_list.0.quant"
-                    ) *
-                    getValues(`item_list.${index}.price` as "item_list.0.price")
-                  ).toLocaleString("en-US", {
+                  {( 
+                    getValues(`item_list.${index}.quant` as "item_list.0.quant") * getValues(`item_list.${index}.price` as "item_list.0.price")
+                    ).toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}

@@ -43,8 +43,35 @@ interface CreateEditProps {
 
 export const CreateEdit: React.FC<CreateEditProps> = ({modalRef, onClose}) => {
 const form = useForm<Invoice>({defaultValues: {item_list: [{item_name:'', quant: 0, price: 0}]}});
-const { register, handleSubmit, formState: { errors } } = form
-const onSubmit: SubmitHandler<Invoice> = data => console.log({data});
+const { register, handleSubmit, setValue, getValues ,formState: { errors } } = form
+
+const onSubmit: SubmitHandler<Invoice> = data => { try {
+    fetch(`/api/invoices/`, {
+      method: "POST",
+      body: JSON.stringify(data)
+    });
+} catch (error) {
+    console.log("Failed to create invoice:", error);
+    };
+    window.location.reload();
+};
+
+const handleSaveAsDraft = () => {
+    setValue("status", "Draft");
+    const data = getValues()
+    const submit: SubmitHandler<Invoice> = data => {
+      try {
+        fetch(`/api/invoices/`, {
+          method: "POST",
+          body: JSON.stringify(data),
+        });
+      } catch (error) {
+        console.log("Failed to create invoice:", error);
+      }
+    };
+    submit(data);
+    window.location.reload();
+};
 
 useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -52,9 +79,7 @@ useEffect(() => {
           onClose();
         }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
-
     return () => {
         document.removeEventListener('mousedown', handleClickOutside);
     };
@@ -146,14 +171,14 @@ useEffect(() => {
                 <button
                   className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold rounded-full bg-dark-violet"
                   type="button"
-                  onClick={() => onClose()}
+                  onClick={handleSaveAsDraft}
                 >
                   Save as Draft
                 </button>
                 <button
                   className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold bg-violet rounded-full"
-                  type="button"
-                  onClick={() => onClose()}
+                  type="submit"
+                  onClick={() => setValue("status", "Pending")}
                 >
                   Save and Send
                 </button>
