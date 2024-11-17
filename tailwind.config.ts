@@ -13,6 +13,7 @@ const config: Config = {
         'dark-purple': "#141625",
         'violet' :'#7c5dfa',
         'light-violet':'#9277ff',
+        'dark-violet':'#35266c',
         'dark-blue':'#1e2139',
         'blue-steel':'#7e88c3',
         'light-green':'#33d69f',

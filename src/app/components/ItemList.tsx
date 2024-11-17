@@ -88,11 +88,12 @@ export const ItemList: React.FC<ItemListProps> = ({ form }) => {
             </div>
           ))}
           <button
-            className="flex items-center justify-center py-[15px] px-[18px] text-white text-xs font-bold bg-dark-blue rounded-full ease-in-out hover:bg-violet hover:transition-all"
+            className="flex items-center gap-1 justify-center py-[15px] px-[18px] text-white text-xs font-bold bg-dark-blue rounded-full ease-in-out hover:bg-violet hover:transition-all"
             type="button"
             onClick={() => append({ item_name: "", quant: 0, price: 0 })}
           >
-            + Add New Items
+            <span className="text-xl">+</span>
+            <span>Add New Items</span>
           </button>
         </div>
       </>

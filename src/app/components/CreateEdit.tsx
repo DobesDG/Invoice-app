@@ -60,35 +60,107 @@ useEffect(() => {
     };
 }, [modalRef, onClose]);
 
-    return(
-        <section ref={modalRef} className="h-[100vh] overflow-y-scroll">
-            <div className="p-6 flex flex-col bg-dark-purple h-fit w-[702px]">
-                <p className="text-white text-2xl font-bold tracking-[-1px] mb-6">New Invoice</p>
-                <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="flex flex-col">  
-                    <p className="text-violet text-xs font-bold tracking-[-0.25px] mb-6">Bill From</p>
-                    <Input label="Street Address" error={errors.pay_from?.street_ad_from} {...register("pay_from.street_ad_from", { required: true })} />
-                    <div className="grid grid-flow-col gap-2">
-                        <Input label="City" error={errors.pay_from?.city_from} {...register("pay_from.city_from", { required: true })}/>
-                        <Input label="Post Code" error={errors.pay_from?.pcode_city_from} {...register("pay_from.pcode_city_from", { required: true })}/>
-                        <Input label="Country" error={errors.pay_from?.country_from} {...register("pay_from.country_from", { required: true })}/>
-                    </div>
-                    <p className="text-violet text-xs font-bold tracking-[-0.25px] mb-6">Bill To</p>
-                    <Input label="Client's name" error={errors.pay_to?.client_name} {...register("pay_to.client_name", { required: true })} />
-                    <Input label="Client's Email" error={errors.pay_to?.client_email} {...register("pay_to.client_email", { required: true })} />
-                    <Input label="Street Address" error={errors.pay_to?.street_ad_to} {...register("pay_to.street_ad_to", { required: true })} />
-                    <div className="grid grid-flow-col gap-2">
-                        <Input label="City" error={errors.pay_to?.city_to} {...register("pay_to.city_to", { required: true })}/>
-                        <Input label="Post Code" error={errors.pay_to?.pcode_city_to} {...register("pay_to.pcode_city_to", { required: true })}/>
-                        <Input label="Country" error={errors.pay_to?.country_to} {...register("pay_to.country_to", { required: true })}/>
-                    </div>
-                    <DateSelector register={register} errors={errors.pay_to?.payment}/>
-                    <Input label="Project Description" error={errors.pay_to?.description} {...register("pay_to.description", { required: true })}/>
-                    <ItemList form={form}/>
-                    <input type="submit"/>  
-                </form>
+    return (
+      <section ref={modalRef} className="h-[100vh] overflow-y-scroll">
+        <div className="p-6 flex flex-col bg-dark-purple h-fit w-[702px]">
+          <p className="text-white text-2xl font-bold tracking-[-1px] mb-6">
+            New Invoice
+          </p>
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+            <p className="text-violet text-xs font-bold tracking-[-0.25px] mb-6">
+              Bill From
+            </p>
+            <Input
+              label="Street Address"
+              error={errors.pay_from?.street_ad_from}
+              {...register("pay_from.street_ad_from", { required: true })}
+            />
+            <div className="grid grid-flow-col gap-2">
+              <Input
+                label="City"
+                error={errors.pay_from?.city_from}
+                {...register("pay_from.city_from", { required: true })}
+              />
+              <Input
+                label="Post Code"
+                error={errors.pay_from?.pcode_city_from}
+                {...register("pay_from.pcode_city_from", { required: true })}
+              />
+              <Input
+                label="Country"
+                error={errors.pay_from?.country_from}
+                {...register("pay_from.country_from", { required: true })}
+              />
             </div>
-        </section>
-    )
+            <p className="text-violet text-xs font-bold tracking-[-0.25px] mb-6">
+              Bill To
+            </p>
+            <Input
+              label="Client's name"
+              error={errors.pay_to?.client_name}
+              {...register("pay_to.client_name", { required: true })}
+            />
+            <Input
+              label="Client's Email"
+              error={errors.pay_to?.client_email}
+              {...register("pay_to.client_email", { required: true })}
+            />
+            <Input
+              label="Street Address"
+              error={errors.pay_to?.street_ad_to}
+              {...register("pay_to.street_ad_to", { required: true })}
+            />
+            <div className="grid grid-flow-col gap-2">
+              <Input
+                label="City"
+                error={errors.pay_to?.city_to}
+                {...register("pay_to.city_to", { required: true })}
+              />
+              <Input
+                label="Post Code"
+                error={errors.pay_to?.pcode_city_to}
+                {...register("pay_to.pcode_city_to", { required: true })}
+              />
+              <Input
+                label="Country"
+                error={errors.pay_to?.country_to}
+                {...register("pay_to.country_to", { required: true })}
+              />
+            </div>
+            <DateSelector register={register} errors={errors.pay_to?.payment} />
+            <Input
+              label="Project Description"
+              error={errors.pay_to?.description}
+              {...register("pay_to.description", { required: true })}
+            />
+            <ItemList form={form} />
+            <div className="flex mt-16 justify-between items-center">
+              <button
+                className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold bg-light-red rounded-full"
+                type="button"
+                onClick={() => onClose()}
+              >
+                Discard
+              </button>
+              <div className="flex gap-2 items-center">
+                <button
+                  className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold rounded-full bg-dark-violet"
+                  type="button"
+                  onClick={() => onClose()}
+                >
+                  Save as Draft
+                </button>
+                <button
+                  className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold bg-violet rounded-full"
+                  type="button"
+                  onClick={() => onClose()}
+                >
+                  Save and Send
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+    );
 }
