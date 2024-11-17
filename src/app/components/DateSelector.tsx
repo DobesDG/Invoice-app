@@ -68,7 +68,7 @@ export const DateSelector: React.FC<DateSelectorProps> = ({register, errors}) =>
                         }`}
                         onClick={handleInputDiv}>
                         <input className="font-bold bg-dark-blue focus:outline-none border-none" value={format(selected,'dd MMM yyyy')} readOnly/>
-                        <Image src={calendar} width={16} height={16} alt=""/>
+                        <Image className="hover:cursor-pointer" src={calendar} width={16} height={16} alt=""/>
                     </div>
                 </div>
                 {pickerOn && (

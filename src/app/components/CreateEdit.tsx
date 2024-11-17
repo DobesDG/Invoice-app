@@ -5,7 +5,7 @@ import { Input } from "./Input";
 import { DateSelector } from "./DateSelector";
 import { ItemList } from "./ItemList";
 
-interface Invoice {
+export interface Invoice {
     _id: string,
     status: string ,
     pay_from:{
@@ -42,7 +42,8 @@ interface CreateEditProps {
 
 
 export const CreateEdit: React.FC<CreateEditProps> = ({modalRef, onClose}) => {
-const { register, handleSubmit, getValues,formState: { errors } } = useForm<Invoice>();
+const form = useForm<Invoice>({defaultValues: {item_list: [{item_name:'', quant: 0, price: 0}]}});
+const { register, handleSubmit, formState: { errors } } = form
 const onSubmit: SubmitHandler<Invoice> = data => console.log({data});
 
 useEffect(() => {
@@ -61,7 +62,7 @@ useEffect(() => {
 
     return(
         <section ref={modalRef} className="h-[100vh] overflow-y-scroll">
-            <div className="p-6 flex flex-col bg-dark-purple h-[1400px] w-[702px]">
+            <div className="p-6 flex flex-col bg-dark-purple h-fit w-[702px]">
                 <p className="text-white text-2xl font-bold tracking-[-1px] mb-6">New Invoice</p>
                 <form
                 onSubmit={handleSubmit(onSubmit)}
@@ -84,7 +85,7 @@ useEffect(() => {
                     </div>
                     <DateSelector register={register} errors={errors.pay_to?.payment}/>
                     <Input label="Project Description" error={errors.pay_to?.description} {...register("pay_to.description", { required: true })}/>
-                    <ItemList register={register} getValues={getValues} item_error={errors.item_list?.[0]?.item_name} quant_error={errors.item_list?.[0]?.quant} price_error={errors.item_list?.[0]?.price}/>
+                    <ItemList form={form}/>
                     <input type="submit"/>  
                 </form>
             </div>
