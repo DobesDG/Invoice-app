@@ -1,4 +1,5 @@
-import React, { useEffect, MutableRefObject } from "react";
+import React, { useEffect, MutableRefObject, useContext } from "react";
+import { ThemeContext } from "./ThemeContext";
 
 interface FilterProps {
     label: string;
@@ -10,6 +11,8 @@ interface FilterProps {
   }
   
   export const Filter: React.FC<FilterProps> = ({ label, value, setValue, modalRef ,onClose, filterOn }) => {
+
+    const theme = useContext(ThemeContext)
 
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
@@ -38,7 +41,7 @@ interface FilterProps {
         <div className="flex flex-row group items-center gap-3" onClick={() => handleStatusChange(label)}>
             <div className="w-[19px] h-[19px] ">
               <input
-              className="appearance-none w-full h-full  rounded-sm border bg-dark-blue border-dark-blue group-hover:border-violet hover:cursor-pointer checked:bg-violet checked:border-violet "
+              className={`appearance-none w-full h-full  rounded-sm border  border-dark-blue group-hover:border-violet hover:cursor-pointer checked:bg-violet checked:border-violet ${theme ? 'bg-dark-blue border-dark-blue' : 'bg-light-gray border-light-gray'}`}
               name={label}
               type="checkbox" 
               checked={value.includes(label)} 

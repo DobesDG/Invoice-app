@@ -1,9 +1,11 @@
-import { useForm, SubmitHandler, UseFormReturn } from "react-hook-form";
-import { useEffect } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useContext, useEffect } from "react";
 import { MutableRefObject } from "react";
 import { Input } from "./Input";
 import { DateSelector } from "./DateSelector";
 import { ItemList } from "./ItemList";
+import { ThemeContext } from "./ThemeContext";
+
 export interface Invoice {
     _id: string,
     status: string ,
@@ -43,6 +45,7 @@ interface CreateEditProps {
 export const CreateEdit: React.FC<CreateEditProps> = ({modalRef, onClose, restType, data}) => {
 
 const defaultValues: Partial<Invoice> = restType === "edit" && data ? data : { item_list: [{ item_name: "", quant: 0, price: 0 }] };
+const theme = useContext(ThemeContext)
 
 const form = useForm<Invoice>({ defaultValues });
 const { register, handleSubmit, setValue, getValues ,formState: { errors } } = form
@@ -105,10 +108,17 @@ useEffect(() => {
 
     return (
       <section ref={modalRef} className="h-[100vh] overflow-y-scroll">
-        <div className="p-6 flex flex-col bg-dark-purple h-fit w-[702px]">
-          <p className="text-white text-2xl font-bold tracking-[-1px] mb-6">
-            New Invoice
-          </p>
+        <div className={`p-6 flex flex-col h-fit w-[702px] ${theme ? 'bg-dark-purple' : 'bg-white'}`}>
+          {restType == "create" && (
+            <p className={`text-2xl font-bold tracking-[-1px] mb-6 ${theme ? 'text-white' : 'text-black'}`}>
+              New Invoice
+            </p>
+          )}
+          {restType == "edit" && (
+            <p className={`text-2xl font-bold tracking-[-1px] mb-6 ${theme ? 'text-white' : 'text-black'}`}>
+              Edit <span className="text-blue-steel">#</span>{data?._id}
+            </p>
+          )}
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
             <p className="text-violet text-xs font-bold tracking-[-0.25px] mb-6">
               Bill From

@@ -2,14 +2,16 @@ import trash from "../public/assets/trash.svg";
 import Image from "next/image";
 import { Input } from "./Input";
 import { UseFormReturn, useFieldArray } from "react-hook-form";
-import React from "react";
+import React, { useContext } from "react";
 import { Invoice } from "./CreateEdit";
+import { ThemeContext } from "./ThemeContext";
 
 interface ItemListProps {
     form: UseFormReturn<Invoice>
 }
 
 export const ItemList: React.FC<ItemListProps> = ({ form }) => {
+    const theme = useContext(ThemeContext)
     const {register, getValues, formState: {errors}} = form
     const { fields, append, remove } = useFieldArray({
         control: form.control,
@@ -56,7 +58,7 @@ export const ItemList: React.FC<ItemListProps> = ({ form }) => {
                   )}
                 />
               </div>
-              <div className="flex flex-col text-white text-xs mb-6 w-[22%]">
+              <div className={`flex flex-col text-xs mb-6 w-[22%] ${theme ? 'text-white' : 'text-blue-steel'}`}>
                 <label className="flex flex-row justify-between mb-3">
                   Total
                 </label>
@@ -85,7 +87,7 @@ export const ItemList: React.FC<ItemListProps> = ({ form }) => {
             </div>
           ))}
           <button
-            className="flex items-center gap-1 justify-center py-[15px] px-[18px] text-white text-xs font-bold bg-dark-blue rounded-full ease-in-out hover:bg-violet hover:transition-all"
+            className={`flex items-center gap-1 justify-center py-[15px] px-[18px]  text-xs font-bold rounded-full ease-in-out  hover:transition-all ${theme ? 'bg-dark-blue text-white hover:bg-violet' : 'bg-gray-50 hover:bg-indigo-100 text-blue-steel'}`}
             type="button"
             onClick={() => append({ item_name: "", quant: 0, price: 0 })}
           >

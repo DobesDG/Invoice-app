@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { FieldError , UseFormRegister } from "react-hook-form";
 import { Input } from "./Input";
 import { format, add, differenceInDays } from 'date-fns'
@@ -6,6 +6,7 @@ import { DayPicker } from "react-day-picker";
 import calendar from "../public/assets/calendar.svg"
 import Image from "next/image";
 import "react-day-picker/style.css";
+import { ThemeContext } from "./ThemeContext";
 
 interface DateSelectorProps {
     register: UseFormRegister<any>,
@@ -19,6 +20,7 @@ export const DateSelector: React.FC<DateSelectorProps> = ({register, errors}) =>
     const [payTerms, setPayTerms] = useState(differenceInDays(selected,new Date()));
     const inputDivRef = useRef<HTMLDivElement>(null);
     const calendarRef = useRef<HTMLDivElement>(null);
+    const theme = useContext(ThemeContext)
     
     const handlePayTerms = (days: string) => {
         const numDays = days.slice(0, 3)
@@ -57,17 +59,16 @@ export const DateSelector: React.FC<DateSelectorProps> = ({register, errors}) =>
     return(
         <div>
             <div className="relative">
-                <div className="flex flex-col text-white text-xs mb-6">
+                <div className={`flex flex-col text-xs mb-6 ${theme ? 'text-white' : 'text-blue-steel'}`}>
                     <div className="flex flex-row justify-between mb-3">
                         <label htmlFor="">Invoice Date</label>
                     </div>
                     <div
                         ref={inputDivRef}
-                        className={`flex flex-row justify-between w-full items-center py-[15px] px-[18px] font-bold bg-dark-blue border rounded ${
-                            focused ? 'border-white' : 'border-light-purple'
-                        }`}
+                        className={`flex flex-row justify-between w-full items-center py-[15px] px-[18px] font-bold border rounded ${
+                            focused ? theme ? 'border-white' : 'border-black' : theme ? 'border-light-purple' : 'border-light-gray'} ${theme ? 'bg-dark-blue' : 'bg-white'}`}
                         onClick={handleInputDiv}>
-                        <input className="font-bold bg-dark-blue focus:outline-none border-none" value={format(selected,'dd MMM yyyy')} readOnly/>
+                        <input className={`font-bold focus:outline-none border-none ${theme ? 'bg-dark-blue' : 'bg-white text-black'}`} value={format(selected,'dd MMM yyyy')} readOnly/>
                         <Image className="hover:cursor-pointer" src={calendar} width={16} height={16} alt=""/>
                     </div>
                 </div>
