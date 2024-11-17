@@ -74,8 +74,6 @@ export const POST = async ( request: Request ) => {
 
     const doc = {...body, _id: makeID(), date_added: new Date()}
 
-    console.log(doc)
-
     await Invoice.insertMany(doc)
 
     return new Response(
@@ -83,7 +81,7 @@ export const POST = async ( request: Request ) => {
         message: `Invoice ${makeID()} created successfully`,
       }),
       {
-        status: 200,
+        status: 201,
         headers: { "Content-Type": "application/json" },
       }
     );

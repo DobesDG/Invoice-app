@@ -1,10 +1,9 @@
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, UseFormReturn } from "react-hook-form";
 import { useEffect } from "react";
 import { MutableRefObject } from "react";
 import { Input } from "./Input";
 import { DateSelector } from "./DateSelector";
 import { ItemList } from "./ItemList";
-
 export interface Invoice {
     _id: string,
     status: string ,
@@ -35,26 +34,45 @@ export interface Invoice {
 }
 
 interface CreateEditProps {
+    data?: Invoice,
+    restType: string,
     modalRef: MutableRefObject<HTMLDivElement | null>,
     onClose: () => void
 }
 
+export const CreateEdit: React.FC<CreateEditProps> = ({modalRef, onClose, restType, data}) => {
 
+const defaultValues: Partial<Invoice> = restType === "edit" && data ? data : { item_list: [{ item_name: "", quant: 0, price: 0 }] };
 
-export const CreateEdit: React.FC<CreateEditProps> = ({modalRef, onClose}) => {
-const form = useForm<Invoice>({defaultValues: {item_list: [{item_name:'', quant: 0, price: 0}]}});
+const form = useForm<Invoice>({ defaultValues });
 const { register, handleSubmit, setValue, getValues ,formState: { errors } } = form
 
-const onSubmit: SubmitHandler<Invoice> = data => { try {
-    fetch(`/api/invoices/`, {
-      method: "POST",
-      body: JSON.stringify(data)
-    });
-} catch (error) {
-    console.log("Failed to create invoice:", error);
-    };
+const onSubmit: SubmitHandler<Invoice> = data => {
+
+  if (restType == "create") {
+    try {
+      fetch(`/api/invoices/`, {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+    } catch (error) {
+      console.log("Failed to create invoice:", error);
+    }
     window.location.reload();
-};
+  }
+
+  if (restType == "edit") {
+    try {
+      fetch(`/api/invoices/${data._id}?operation=editInvoice`, {
+        method: "PATCH",
+        body: JSON.stringify(data),
+      });
+    } catch (error) {
+      console.log("Failed to create invoice:", error);
+    }
+    window.location.reload();
+  }
+}
 
 const handleSaveAsDraft = () => {
     setValue("status", "Draft");
@@ -159,31 +177,51 @@ useEffect(() => {
               {...register("pay_to.description", { required: true })}
             />
             <ItemList form={form} />
-            <div className="flex mt-16 justify-between items-center">
-              <button
-                className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold bg-light-red rounded-full"
-                type="button"
-                onClick={() => onClose()}
-              >
-                Discard
-              </button>
-              <div className="flex gap-2 items-center">
+            {restType == "create" && (
+              <div className="flex mt-16 justify-between items-center">
                 <button
-                  className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold rounded-full bg-dark-violet"
+                  className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold bg-light-red rounded-full"
                   type="button"
-                  onClick={handleSaveAsDraft}
+                  onClick={() => onClose()}
                 >
-                  Save as Draft
+                  Discard
+                </button>
+                <div className="flex gap-2 items-center">
+                  <button
+                    className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold rounded-full bg-dark-violet"
+                    type="button"
+                    onClick={handleSaveAsDraft}
+                  >
+                    Save as Draft
+                  </button>
+                  <button
+                    className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold bg-violet rounded-full"
+                    type="submit"
+                    onClick={() => setValue("status", "Pending")}
+                  >
+                    Save and Send
+                  </button>
+                </div>
+              </div>
+            )}
+            {restType == "edit" && (
+              <div className="flex mt-16 justify-end gap-2 items-center">
+                <button
+                  className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold bg-light-red rounded-full"
+                  type="button"
+                  onClick={() => onClose()}
+                >
+                  Cancel
                 </button>
                 <button
                   className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold bg-violet rounded-full"
                   type="submit"
                   onClick={() => setValue("status", "Pending")}
                 >
-                  Save and Send
+                  Save Changes
                 </button>
               </div>
-            </div>
+            )}
           </form>
         </div>
       </section>

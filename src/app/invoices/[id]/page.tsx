@@ -99,7 +99,7 @@ export default function InvoiceDetailsPage({ params }: { params: { id: string } 
                         </div>
                     </div>
                 </div >
-                <Mutate invoiceId={invoice._id} invoiceStatus={invoice.status}/>
+                <Mutate data={invoice} invoiceId={invoice._id} invoiceStatus={invoice.status}/>
             </section>
             <section className="flex flex-col bg-dark-blue border-dark-blue border-[1px] p-6 rounded-lg w-[730px] max-xl:w-[672px]">
                 <section className='flex flex-row justify-between mb-8'>
