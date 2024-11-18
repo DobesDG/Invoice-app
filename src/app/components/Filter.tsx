@@ -5,35 +5,17 @@ interface FilterProps {
     label: string;
     value: string[];  
     setValue: React.Dispatch<React.SetStateAction<string[]>>;  
-    filterOn: React.Dispatch<React.SetStateAction<boolean>>;
-    modalRef: MutableRefObject<HTMLDivElement | null>;
-    onClose: () => void
   }
   
-  export const Filter: React.FC<FilterProps> = ({ label, value, setValue, modalRef ,onClose, filterOn }) => {
-
+  export const Filter: React.FC<FilterProps> = ({ label, value, setValue }) => {
     const theme = useContext(ThemeContext)
 
-    useEffect(() => {
-      const handleClickOutside = (event: MouseEvent) => {
-          if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-            onClose();
-          }
-      };
-  
-      document.addEventListener('mousedown', handleClickOutside);
-  
-      return () => {
-          document.removeEventListener('mousedown', handleClickOutside);
-      };
-  }, [filterOn, modalRef, onClose]);
-    
     const handleStatusChange = (label: string) => {
       if (value.includes(label)) {
         setValue(value.filter(s => s !== label));
       } else {
         setValue([...value, label]);
-    }
+      }
     };
   
     return (

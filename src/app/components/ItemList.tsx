@@ -26,9 +26,9 @@ export const ItemList: React.FC<ItemListProps> = ({ form }) => {
           {fields.map((field, index) => (
             <div
               key={field.id}
-              className="flex flex-row w-full justify-between items-center gap-4"
+              className="flex flex-row w-full justify-between items-center gap-4 max-md:flex-col max-md:gap-0"
             >
-              <div className="w-[40%]">
+              <div className="w-[40%] max-md:w-full">
                 <Input
                   label="Item Name"
                   error={errors.item_list?.[index]?.item_name}
@@ -38,56 +38,58 @@ export const ItemList: React.FC<ItemListProps> = ({ form }) => {
                   )}
                 />
               </div>
-              <div className="w-[15%]">
-                <Input
-                  label="Qty."
-                  error={errors.item_list?.[index]?.quant}
-                  {...register(
-                    `item_list.${index}.quant` as "item_list.0.quant",
-                    { required: true }
-                  )}
-                />
-              </div>
-              <div className="w-[15%]">
-                <Input
-                  label="Price"
-                  error={errors.item_list?.[index]?.price}
-                  {...register(
-                    `item_list.${index}.price` as "item_list.0.price",
-                    { required: true }
-                  )}
-                />
-              </div>
-              <div className={`flex flex-col text-xs mb-6 w-[22%] ${theme ? 'text-white' : 'text-blue-steel'}`}>
-                <label className="flex flex-row justify-between mb-3">
-                  Total
-                </label>
-                <p className="flex py-[15px] px-[18px] font-bold items-end justify-center max-xl:px-[10px]">
-                  $
-                  {( 
-                    getValues(`item_list.${index}.quant` as "item_list.0.quant") * getValues(`item_list.${index}.price` as "item_list.0.price")
-                    ).toLocaleString("en-US", {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
-                </p>
-              </div>
-              <div className="w-[8%]">
-                {fields.length != 1 && (
-                  <Image
-                    className="hover:cursor-pointer"
-                    onClick={() => remove(index)}
-                    src={trash}
-                    width={13}
-                    height={11}
-                    alt=""
+              <div className="flex flex-row w-[60%] gap-4 items-center max-md:w-full">                
+                <div className="w-[25%]">
+                  <Input
+                    label="Qty."
+                    error={errors.item_list?.[index]?.quant}
+                    {...register(
+                      `item_list.${index}.quant` as "item_list.0.quant",
+                      { required: true }
+                    )}
                   />
-                )}
+                </div>
+                <div className="w-[25%]">
+                  <Input
+                    label="Price"
+                    error={errors.item_list?.[index]?.price}
+                    {...register(
+                      `item_list.${index}.price` as "item_list.0.price",
+                      { required: true }
+                    )}
+                  />
+                </div>
+                <div className={`flex flex-col text-xs mb-6 w-[30%] ${theme ? 'text-white' : 'text-blue-steel'}`}>
+                  <label className="flex flex-row justify-between mb-3">
+                    Total
+                  </label>
+                  <p className="flex py-[15px] px-[18px] font-bold items-end justify-center max-xl:px-[10px]">
+                    $
+                    {( 
+                      getValues(`item_list.${index}.quant` as "item_list.0.quant") * getValues(`item_list.${index}.price` as "item_list.0.price")
+                      ).toLocaleString("en-US", {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                  </p>
+                </div>
+                <div className="w-[10%]">
+                  {fields.length != 1 && (
+                    <Image
+                      className="hover:cursor-pointer"
+                      onClick={() => remove(index)}
+                      src={trash}
+                      width={13}
+                      height={11}
+                      alt=""
+                    />
+                  )}
+                </div>
               </div>
             </div>
           ))}
           <button
-            className={`flex items-center gap-1 justify-center py-[15px] px-[18px]  text-xs font-bold rounded-full ease-in-out  hover:transition-all ${theme ? 'bg-dark-blue text-white hover:bg-violet' : 'bg-gray-50 hover:bg-indigo-100 text-blue-steel'}`}
+            className={`flex items-center gap-1 justify-center py-[15px] px-[18px] text-xs font-bold rounded-full ease-in-out  hover:transition-all max-md:py-[11.25px] max-md:px-[18px] ${theme ? 'bg-dark-blue text-white hover:bg-violet' : 'bg-gray-50 hover:bg-indigo-100 text-blue-steel'}`}
             type="button"
             onClick={() => append({ item_name: "", quant: 0, price: 0 })}
           >

@@ -5,6 +5,8 @@ import { Input } from "./Input";
 import { DateSelector } from "./DateSelector";
 import { ItemList } from "./ItemList";
 import { ThemeContext } from "./ThemeContext";
+import Image from "next/image";
+import arrow_left from "../public/assets/icon-arrow-left.svg"
 
 export interface Invoice {
     _id: string,
@@ -107,8 +109,14 @@ useEffect(() => {
 }, [modalRef, onClose]);
 
     return (
-      <section ref={modalRef} className="h-[100vh] overflow-y-scroll">
-        <div className={`p-6 flex flex-col h-fit w-[702px] max-xl:w-[619px] ${theme ? 'bg-dark-purple' : 'bg-white'}`}>
+      <section ref={modalRef} className="h-[100vh] overflow-y-scroll max-md:h-[95vh]">
+        <div className={`p-6 flex flex-col h-fit w-[702px] max-xl:w-[619px] max-md:w-full ${theme ? 'bg-dark-purple' : 'bg-white'}`}>
+          <div className='hover:cursor-pointer pt-3 pb-8'>
+              <button onClick={onClose} className='flex flex-row items-baseline gap-4 md:hidden'>
+                  <Image className='w-[7px] h-[10px]' src={arrow_left} alt="" width={7} height={10} />
+                      <p className={`text-[12px] font-bold ${theme ? "text-white" : 'text-black'}`}>Go back</p>
+              </button>
+            </div>
           {restType == "create" && (
             <p className={`text-2xl font-bold tracking-[-1px] mb-6 ${theme ? 'text-white' : 'text-black'}`}>
               New Invoice
@@ -128,22 +136,28 @@ useEffect(() => {
               error={errors.pay_from?.street_ad_from}
               {...register("pay_from.street_ad_from", { required: true })}
             />
-            <div className="grid grid-flow-col gap-2">
-              <Input
-                label="City"
-                error={errors.pay_from?.city_from}
-                {...register("pay_from.city_from", { required: true })}
-              />
-              <Input
-                label="Post Code"
-                error={errors.pay_from?.pcode_city_from}
-                {...register("pay_from.pcode_city_from", { required: true })}
-              />
-              <Input
-                label="Country"
-                error={errors.pay_from?.country_from}
-                {...register("pay_from.country_from", { required: true })}
-              />
+            <div className="grid grid-flow-col gap-2 max-md:grid-flow-row">
+              <div className="max-md:col-start-2 max-md:row-start-1">
+                <Input
+                  label="City"
+                  error={errors.pay_from?.city_from}
+                  {...register("pay_from.city_from", { required: true })}
+                />
+              </div>
+              <div className="max-md:row-start-2 max-md:col-span-2">
+                <Input                  
+                  label="Post Code"
+                  error={errors.pay_from?.pcode_city_from}
+                  {...register("pay_from.pcode_city_from", { required: true })}
+                />
+              </div>
+              <div className="max-md:col-start-1 max-md:row-start-1">
+                <Input
+                  label="Country"
+                  error={errors.pay_from?.country_from}
+                  {...register("pay_from.country_from", { required: true })}
+                />
+              </div>
             </div>
             <p className="text-violet text-xs font-bold tracking-[-0.25px] mb-6">
               Bill To
@@ -163,22 +177,28 @@ useEffect(() => {
               error={errors.pay_to?.street_ad_to}
               {...register("pay_to.street_ad_to", { required: true })}
             />
-            <div className="grid grid-flow-col gap-2">
-              <Input
-                label="City"
-                error={errors.pay_to?.city_to}
-                {...register("pay_to.city_to", { required: true })}
-              />
-              <Input
-                label="Post Code"
-                error={errors.pay_to?.pcode_city_to}
-                {...register("pay_to.pcode_city_to", { required: true })}
-              />
-              <Input
-                label="Country"
-                error={errors.pay_to?.country_to}
-                {...register("pay_to.country_to", { required: true })}
-              />
+            <div className="grid grid-flow-col gap-2 max-md:grid-flow-row">
+              <div className="max-md:col-start-2 max-md:row-start-1">
+                <Input
+                  label="City"
+                  error={errors.pay_to?.city_to}
+                  {...register("pay_to.city_to", { required: true })}
+                />
+              </div>
+              <div className="max-md:row-start-2 max-md:col-span-2">
+                <Input
+                  label="Post Code"
+                  error={errors.pay_to?.pcode_city_to}
+                  {...register("pay_to.pcode_city_to", { required: true })}
+                />
+              </div>
+              <div className="max-md:col-start-1 max-md:row-start-1">
+                <Input
+                  label="Country"
+                  error={errors.pay_to?.country_to}
+                  {...register("pay_to.country_to", { required: true })}
+                />
+              </div>
             </div>
             <DateSelector register={register} errors={errors.pay_to?.payment} />
             <Input
@@ -188,9 +208,9 @@ useEffect(() => {
             />
             <ItemList form={form} />
             {restType == "create" && (
-              <div className="flex mt-16 justify-between items-center">
+              <div className="flex mt-16 justify-between items-center max-xl:mt-12 max-xl:mb-16 max-md:mt-8 max-md:mb-12">
                 <button
-                  className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold bg-light-red rounded-full"
+                  className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold bg-light-red rounded-full max-md:py-[11.25px] max-md:px-[18px]"
                   type="button"
                   onClick={() => onClose()}
                 >
@@ -198,14 +218,14 @@ useEffect(() => {
                 </button>
                 <div className="flex gap-2 items-center">
                   <button
-                    className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold rounded-full bg-dark-violet"
+                    className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold rounded-full bg-dark-violet max-md:py-[11.25px] max-md:px-[18px]"
                     type="button"
                     onClick={handleSaveAsDraft}
                   >
                     Save as Draft
                   </button>
                   <button
-                    className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold bg-violet rounded-full"
+                    className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold bg-violet rounded-full max-md:py-[11.25px] max-md:px-[18px]"
                     type="submit"
                     onClick={() => setValue("status", "Pending")}
                   >

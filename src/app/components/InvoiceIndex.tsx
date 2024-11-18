@@ -80,20 +80,27 @@ export const InvoiceIndex: React.FC = () => {
     );
 
   return (
-    <section className="flex flex-col justify-start pt-16 items-center w-full min-h-[100vh] tracking-[-0.25px] pl-[103px] max-xl:pl-0 max-xl:pt-32">
+    <section className="flex flex-col justify-start pt-16 items-center w-full min-h-[100vh] tracking-[-0.25px] pl-[103px] max-xl:pl-0 max-xl:pt-32 max-md:pt-24">
       <section
-        className={`flex flex-row justify-between w-[730px] mb-14 max-xl:w-[672px] ${
+        className={`flex flex-row justify-between w-[730px] mb-14 max-lg:w-[672px] max-md:w-[87.5%] max-md:mb-9 ${
           theme ? "text-white" : "text-black"
         }`}
       >
-        <div className="flex flex-col gap-2">
-          <p className="text-[32px] font-bold tracking-[-1px]">Invoices</p>
+        <div className="flex flex-col gap-2 max-md:gap-1">
+          <p className="text-[32px] font-bold tracking-[-1px] max-md:text-[20px]">Invoices</p>
           <p
-            className={`text-[12px] ${
-              theme ? "text-white" : "text-steel-blue"
+            className={`text-[12px] max-md:hidden ${
+              theme ? "text-white p" : "text-steel-blue"
             } `}
           >
             There are {invoices.length} total invoices
+          </p>
+          <p
+            className={`text-[12px] md:hidden ${
+              theme ? "text-white p" : "text-steel-blue"
+            } `}
+          >
+            {invoices.length} invoices
           </p>
         </div>
         <div className="flex flex-row items-center gap-4">
@@ -104,12 +111,13 @@ export const InvoiceIndex: React.FC = () => {
           />
           <button
             onClick={() => setNewInvoiceOn(!newInvoiceOn)}
-            className="flex flex-row gap-4 justify-start text-white items-center bg-violet pl-2 pr-[15px] py-2 rounded-3xl text-[12px] font-bold hover:bg-light-violet"
+            className="flex flex-row gap-4 justify-start text-white items-center bg-violet pl-2 pr-[15px] py-2 rounded-3xl text-[12px] font-bold hover:bg-light-violet max-md:py-[0.375rem] max-md:pl-[0.375rem] max-md:pr-[12px] max-md:gap-3"
           >
             <span className="bg-white flex justify-center items-center rounded-3xl w-8 h-8">
               <Image src={plus} alt="" />
             </span>
-            New Invoice
+            <span className="max-md:hidden">New Invoice</span>
+            <span className="md:hidden">New</span>
           </button>
         </div>
       </section>
