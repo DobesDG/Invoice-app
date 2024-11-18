@@ -19,7 +19,7 @@ export const FilterGroup: React.FC<FilterGroupProps> = ({statusValue, setStatusV
       }
 
     return (
-        <button className="flex flex-row items-baseline gap-3 relative" onClick={handleFilter}>
+        <button className="flex flex-row items-baseline gap-3 relative z-0" onClick={handleFilter}>
             <p className="text-[12px] font-bold tracking-normal">Filter by status</p>
             <Image className={`h-[7px] transform transition-transform duration-300 ${filterOn ? 'scale-y-[-1]' : ''}`} src={arrow_down} width={11} alt=""/>
             {filterOn && (

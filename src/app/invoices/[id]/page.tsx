@@ -84,7 +84,7 @@ export default function InvoiceDetailsPage({ params }: { params: { id: string } 
         <ThemeContext.Provider value={dark}>
             <div className={`flex flex-row ${dark ? "bg-dark-purple" : "bg-gray-50"}`}>
             <Header dark={dark} setDark={setDark}/>
-            <section className={`flex flex-col justify-start pt-16 items-center w-full min-h-[100vh] tracking-[-0.25px] pl-[103px] ${dark ? "text-white" : 'text-steel-blue'}`}>
+            <section className={`flex flex-col justify-start pt-16 items-center w-full min-h-[100vh] tracking-[-0.25px] pl-[103px] max-xl:pt-[103px] max-xl:pl-0 ${dark ? "text-white" : 'text-steel-blue'}`}>
                 <section className="flex flex-row justify-between w-[730px] max-xl:w-[672px]">
                     <div className='hover:cursor-pointer pt-3 pb-8'>
                         <Link href={'/'} className='flex flex-row items-baseline gap-4'>
@@ -93,7 +93,7 @@ export default function InvoiceDetailsPage({ params }: { params: { id: string } 
                         </Link>
                     </div>
                 </section>
-                <section className={`flex flex-row border-[1px] p-8 rounded-lg mb-4 w-[730px] justify-between max-xl:w-[672px] ${dark ? "bg-dark-purple border-dark-blue" : "bg-white border-white shadow-filterShadow"}`}>
+                <section className={`flex flex-row border-[1px] p-8 rounded-lg mb-4 w-[730px] justify-between max-xl:w-[672px] ${dark ? "bg-dark-blue border-dark-blue" : "bg-white border-white shadow-filterShadow"}`}>
                     <div className='flex flex-row items-baseline'>
                         <p className='text-[12px]'>Status</p>
                         <div className={`flex flex-row justify-center items-center h-10 w-[6.5rem] rounded-md ml-8 ${colorStatus(invoice.status)[2]}`}>
@@ -105,7 +105,7 @@ export default function InvoiceDetailsPage({ params }: { params: { id: string } 
                     </div >
                     <Mutate data={invoice} invoiceId={invoice._id} invoiceStatus={invoice.status}/>
                 </section>
-                <section className={`flex flex-col border-[1px] p-6 rounded-lg w-[730px] max-xl:w-[672px] ${dark ? "bg-dark-purple border-dark-blue" : "bg-white border-white shadow-filterShadow"}`}>
+                <section className={`flex flex-col border-[1px] p-6 rounded-lg w-[730px] max-xl:w-[672px] ${dark ? "bg-dark-blue border-dark-blue" : "bg-white border-white shadow-filterShadow"}`}>
                     <section className='flex flex-row justify-between mb-8'>
                         <div className='flex flex-col justify-start items-start'>
                             <div className="flex flex-row justify-center items-center mb-2">

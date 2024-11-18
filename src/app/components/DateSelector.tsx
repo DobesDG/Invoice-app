@@ -65,7 +65,7 @@ export const DateSelector: React.FC<DateSelectorProps> = ({register, errors}) =>
                     </div>
                     <div
                         ref={inputDivRef}
-                        className={`flex flex-row justify-between w-full items-center py-[15px] px-[18px] font-bold border rounded ${
+                        className={`flex flex-row justify-between w-full items-center py-[15px] px-[18px] font-bold border rounded max-xl:px-[10px] ${
                             focused ? theme ? 'border-white' : 'border-black' : theme ? 'border-light-purple' : 'border-light-gray'} ${theme ? 'bg-dark-blue' : 'bg-white'}`}
                         onClick={handleInputDiv}>
                         <input className={`font-bold focus:outline-none border-none ${theme ? 'bg-dark-blue' : 'bg-white text-black'}`} value={format(selected,'dd MMM yyyy')} readOnly/>

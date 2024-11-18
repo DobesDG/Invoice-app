@@ -108,7 +108,7 @@ useEffect(() => {
 
     return (
       <section ref={modalRef} className="h-[100vh] overflow-y-scroll">
-        <div className={`p-6 flex flex-col h-fit w-[702px] ${theme ? 'bg-dark-purple' : 'bg-white'}`}>
+        <div className={`p-6 flex flex-col h-fit w-[702px] max-xl:w-[619px] ${theme ? 'bg-dark-purple' : 'bg-white'}`}>
           {restType == "create" && (
             <p className={`text-2xl font-bold tracking-[-1px] mb-6 ${theme ? 'text-white' : 'text-black'}`}>
               New Invoice

@@ -62,7 +62,7 @@ export const ItemList: React.FC<ItemListProps> = ({ form }) => {
                 <label className="flex flex-row justify-between mb-3">
                   Total
                 </label>
-                <p className="flex py-[15px] px-[18px] font-bold items-end justify-center">
+                <p className="flex py-[15px] px-[18px] font-bold items-end justify-center max-xl:px-[10px]">
                   $
                   {( 
                     getValues(`item_list.${index}.quant` as "item_list.0.quant") * getValues(`item_list.${index}.price` as "item_list.0.price")

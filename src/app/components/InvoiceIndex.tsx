@@ -129,7 +129,7 @@ export const InvoiceIndex: React.FC = () => {
         ))}
       </ul>
       {newInvoiceOn && (
-        <section className="fixed flex flex-row justify-start items-start z-10 w-full h-full top-0 left-[6.4375rem] right-0 bg-45%-transp">
+        <section className="fixed flex flex-row justify-start items-start z-10 w-full h-full top-0 left-[6.4375rem] right-0 bg-45%-transp max-xl:top-[72px] max-xl:left-0">
           <CreateEdit
             restType="create"
             modalRef={modalRef}

@@ -13,7 +13,7 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ dark, setDark }) => {
   return (
-    <header className="flex flex-col justify-between bg-light-purple h-screen w-[6.4375rem] rounded-r-[25px] fixed max-xl:flex-row max-xl:w-screen max-xl:h-[72px] max-xl:rounded-none">
+    <header className="flex flex-col justify-between bg-light-purple h-screen w-[6.4375rem] rounded-r-[25px] fixed max-xl:flex-row max-xl:w-screen max-xl:h-[72px] max-xl:rounded-none z-50">
       <div className="group relative overflow-hidden cursor-pointer h-[103px] w-full bg-violet flex items-center justify-center rounded-r-3xl max-xl:h-full max-xl:w-[72px]">
         <Image
           src={logo}
