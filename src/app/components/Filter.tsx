@@ -23,7 +23,7 @@ interface FilterProps {
         <div className="flex flex-row group items-center gap-3" onClick={() => handleStatusChange(label)}>
             <div className="w-[19px] h-[19px] ">
               <input
-              className={`appearance-none w-full h-full  rounded-sm border  border-dark-blue group-hover:border-violet hover:cursor-pointer checked:bg-violet checked:border-violet ${theme ? 'bg-dark-blue border-dark-blue' : 'bg-light-gray border-light-gray'}`}
+              className={`appearance-none w-full h-full rounded-sm border  border-dark-blue group-hover:border-violet hover:cursor-pointer checked:bg-violet checked:border-violet ${theme ? 'bg-dark-blue border-dark-blue' : 'bg-light-gray border-light-gray'}`}
               name={label}
               type="checkbox" 
               checked={value.includes(label)} 

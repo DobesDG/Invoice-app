@@ -20,7 +20,7 @@ export const Input: ForwardRefExoticComponent<InputProps> = forwardRef((props: I
                     <p className="text-[10px] text-light-red">Can't be empty</p>
                     )}
             </div>
-            <input className={`py-[15px] px-[18px] font-bold border rounded max-xl:px-[10px] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${theme ? 'bg-dark-blue border-light-purple' : 'bg-white border-light-gray text-black'}`} {...InputProps} ref={ref}/>
+            <input className={`py-[15px] px-[18px] font-bold border rounded max-xl:px-[10px] w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${theme ? 'bg-dark-blue border-light-purple' : 'bg-white border-light-gray text-black'}`} {...InputProps} ref={ref}/>
         </div>
     );  
 });

@@ -47,9 +47,9 @@ interface DeleteProps {
     
 
     return (
-      <div className="flex flex-row text-[12px] leading-[15px] font-bold gap-2 h-[48px]">
+      <div className="flex flex-row text-[12px] leading-[15px] font-bold gap-2 h-[48px] max-md:fixed">
         <button
-          className={`px-6 rounded-3xl transition-all duration-200 ease-in-out ${theme ? 'bg-light-purple hover:bg-white hover:text-gray-200' : 'bg-transp-white hover:bg-indigo-100'}`}
+          className={`px-6 rounded-3xl transition-all duration-200 ease-in-out ${theme ? 'bg-light-purple hover:bg-white hover:text-gray-200 text-white' : 'bg-transp-white hover:bg-indigo-100 text-blue-steel'}`}
           onClick={() => setEditInvoice(!editInvoice)}
         >
           Edit
@@ -110,12 +110,12 @@ const DeleteModal: React.FC<DeleteProps> = ({ invoiceId , handler, onClose }) =>
 
     return (
         <section className="fixed flex flex-row justify-center items-center z-10 w-full h-full top-0 left-0 right-0 bg-45%-transp">
-            <div ref={modalRef} className={`p-12 flex flex-col w-[480px] rounded-lg ${theme ? 'bg-dark-blue' : 'bg-white'}`}>
-                <h3 className={`text-[32px] leading-[36px] tracking-[-1px] mb-2 ${theme ? 'text-steel-blue ' : 'text-black'}`}>Confirm Deletion</h3>
-                <p className="font-normal text-steel-blue leading-[22px] mb-4">Are your sure your want to delete invoice #{invoiceId}? This action cannot be undone.</p>
+            <div ref={modalRef} className={`p-12 flex flex-col w-[480px] rounded-lg max-md:p-8 max-md:w-[87.5%] ${theme ? 'bg-dark-blue' : 'bg-white'}`}>
+                <h3 className={`text-[32px] leading-[36px] tracking-[-1px] mb-2 max-md:text-[20px] ${theme ? 'text-white ' : 'text-black'}`}>Confirm Deletion</h3>
+                <p className="font-normal text-steel-blue leading-[22px] mb-4">Are you sure you want to delete invoice #{invoiceId}? This action cannot be undone.</p>
                 <div className="flex flex-row text-[12px] leading-[15px] font-bold gap-2 h-[48px] justify-end">
                     <button 
-                        className={`px-6 rounded-3xl transition-all duration-200 ease-in-out ${theme ? 'bg-light-purple hover:bg-white hover:text-gray-200' : 'bg-transp-white hover:bg-indigo-100'}`}
+                        className={`px-6 rounded-3xl transition-all duration-200 ease-in-out ${theme ? 'bg-light-purple hover:bg-white hover:text-gray-200 text-white' : 'bg-transp-white hover:bg-indigo-100 text-blue-steel'}`}
                         onClick={onClose}>
                         Cancel
                     </button>

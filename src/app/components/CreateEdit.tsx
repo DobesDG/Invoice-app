@@ -208,9 +208,9 @@ useEffect(() => {
             />
             <ItemList form={form} />
             {restType == "create" && (
-              <div className="flex mt-16 justify-between items-center max-xl:mt-12 max-xl:mb-16 max-md:mt-8 max-md:mb-12">
+              <div className="flex mt-16 justify-between items-center max-xl:mt-12 max-xl:mb-16 max-md:mt-8 max-md:mb-12 max-[375px]:gap-2">
                 <button
-                  className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold bg-light-red rounded-full max-md:py-[11.25px] max-md:px-[18px]"
+                  className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold bg-light-red rounded-full max-md:py-[11.25px] max-md:px-[18px] max-[375px]:py-[9px] max-[375px]:px-[14.4px] max-[375px]:h-[50px]"
                   type="button"
                   onClick={() => onClose()}
                 >
@@ -218,14 +218,14 @@ useEffect(() => {
                 </button>
                 <div className="flex gap-2 items-center">
                   <button
-                    className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold rounded-full bg-dark-violet max-md:py-[11.25px] max-md:px-[18px]"
+                    className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold rounded-full bg-dark-violet max-md:py-[11.25px] max-md:px-[18px] max-[375px]:py-[9px] max-[375px]:px-[14.4px]"
                     type="button"
                     onClick={handleSaveAsDraft}
                   >
                     Save as Draft
                   </button>
                   <button
-                    className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold bg-violet rounded-full max-md:py-[11.25px] max-md:px-[18px]"
+                    className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold bg-violet rounded-full max-md:py-[11.25px] max-md:px-[18px] max-[375px]:py-[9px] max-[375px]:px-[14.4px]"
                     type="submit"
                     onClick={() => setValue("status", "Pending")}
                   >
@@ -235,16 +235,16 @@ useEffect(() => {
               </div>
             )}
             {restType == "edit" && (
-              <div className="flex mt-16 justify-end gap-2 items-center">
+              <div className="flex mt-16 justify-end gap-2 items-center max-xl:mt-12 max-xl:mb-16 max-md:mt-8 max-md:mb-12">
                 <button
-                  className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold bg-light-red rounded-full"
+                  className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold bg-light-red rounded-full max-md:py-[11.25px] max-md:px-[18px]"
                   type="button"
                   onClick={() => onClose()}
                 >
                   Cancel
                 </button>
                 <button
-                  className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold bg-violet rounded-full"
+                  className="flex items-center justify-center py-[15px] px-[24px] text-white text-xs font-bold bg-violet rounded-full max-md:py-[11.25px] max-md:px-[18px]"
                   type="submit"
                   onClick={() => setValue("status", "Pending")}
                 >
