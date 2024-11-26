@@ -42,7 +42,7 @@ export const InvoiceIndex: React.FC = () => {
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [loading, setLoading] = useState(true);
   const [newInvoiceOn, setNewInvoiceOn] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
   const [status, setStatus] = useState<string[]>([]);
   const router = useRouter();
   const modalRef = useRef<HTMLDivElement>(null);
@@ -57,8 +57,10 @@ export const InvoiceIndex: React.FC = () => {
         if (!response.ok) throw new Error("Error fetching data");
         const data = await response.json();
         setInvoices(data);
-      } catch (error: any) {
-        setError(error.message);
+      } catch (error: unknown) {
+        if(error instanceof Error){
+          setError(error.message)
+        };
       } finally {
         setLoading(false);
       }

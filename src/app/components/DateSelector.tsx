@@ -7,9 +7,10 @@ import calendar from "../public/assets/calendar.svg"
 import Image from "next/image";
 import "react-day-picker/style.css";
 import { ThemeContext } from "./ThemeContext";
+import { Invoice } from "./CreateEdit";
 
 interface DateSelectorProps {
-    register: UseFormRegister<any>,
+    register: UseFormRegister<Invoice>,
     errors: FieldError | undefined
 }
 

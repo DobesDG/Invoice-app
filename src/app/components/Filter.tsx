@@ -1,4 +1,4 @@
-import React, { useEffect, MutableRefObject, useContext } from "react";
+import React, { useContext } from "react";
 import { ThemeContext } from "./ThemeContext";
 
 interface FilterProps {

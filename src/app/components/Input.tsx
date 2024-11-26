@@ -8,7 +8,7 @@ interface InputProps extends HTMLProps<HTMLInputElement> {
     error?: FieldError
 }
 
-export const Input: ForwardRefExoticComponent<InputProps> = forwardRef((props: InputProps, ref:Ref<HTMLInputElement>) => {
+export const Input: ForwardRefExoticComponent<InputProps> = forwardRef(function InputFowardRef(props: InputProps, ref:Ref<HTMLInputElement>) {
     const {label, error, ...InputProps} = props;
     const theme = useContext(ThemeContext)
 
@@ -17,7 +17,7 @@ export const Input: ForwardRefExoticComponent<InputProps> = forwardRef((props: I
             <div className="flex flex-row justify-between mb-3">
                 <label htmlFor="">{label}</label>
                 {error?.type == 'required' && (
-                    <p className="text-[10px] text-light-red">Can't be empty</p>
+                    <p className="text-[10px] text-light-red">{`Can't be empty`}</p>
                     )}
             </div>
             <input className={`py-[15px] px-[18px] font-bold border rounded max-xl:px-[10px] w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${theme ? 'bg-dark-blue border-light-purple' : 'bg-white border-light-gray text-black'}`} {...InputProps} ref={ref}/>

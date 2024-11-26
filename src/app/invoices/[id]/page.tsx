@@ -9,35 +9,7 @@ import DateComponent from '@/app/components/Date'
 import { Mutate }from '@/app/components/Mutate'
 import { useLocalStorage } from '@/app/lib/useLocalStorage';
 import { ThemeContext } from "@/app/components/ThemeContext";
-
-interface Invoice {
-    _id: string;
-    status: string;
-    pay_from: {
-      street_ad_from: string;
-      city_from: string;
-      pcode_city_from: string;
-      country_from: string;
-    };
-    pay_to: {
-      client_name: string;
-      client_email: string;
-      street_ad_to: string;
-      city_to: string;
-      pcode_city_to: string;
-      country_to: string;
-      payment: number;
-      description: string;
-    };
-    date_added: string;
-    item_list: [
-      {
-          item_name: string;
-          quant: number;
-          price: number;
-      }
-    ];
-}
+import { Invoice } from '@/app/components/CreateEdit';
 
 export default function InvoiceDetailsPage({ params }: { params: { id: string } }) {
     const [invoice, setInvoice] = useState<Invoice | null>(null);
@@ -54,8 +26,10 @@ export default function InvoiceDetailsPage({ params }: { params: { id: string } 
                 if (!response.ok) throw new Error('Error fetching data');
                 const data = await response.json();
                 setInvoice(data);
-            } catch (error: any) {
-                setError(error.message);
+            } catch (error: unknown) {
+                if(error instanceof Error){
+                    setError(error.message);
+                }
             } finally {
                 setLoading(false);
             }
